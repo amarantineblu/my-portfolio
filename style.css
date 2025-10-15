@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'SUSE-ExtraBold';
-  src: url('/fonts/SUSE/static/SUSE-ExtraBold.ttf');
+  src: url('/assets/fonts/SUSE/static/SUSE-ExtraBold.ttf');
 }
 
 @font-face {
   font-family: 'Poppins-Regular';
-  src: url('/fonts/Poppins/Poppins-Regular.ttf');
+  src: url('/assets/fonts/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
@@ -21,7 +21,24 @@
 :root{
   --poppins-regular: 'Poppins-Regular';
   --suse-extra-bold: 'SUSE-ExtraBold';
-  --great-vibes: 'Great-Vibes'
+  --great-vibes: 'Great-Vibes';
+  --text-animation:changeTextSize 3s  forwards;
+  --text-transform-origin: center center;
+
+  /* --shadowy-text: rgba(211, 202, 185, 0.723); */
+  --shadowy-text: repeating-linear-gradient(90deg, rgba(208, 84, 7, 0.567), rgba(0, 0, 0, 0.8), rgba(234, 13, 94, 0.567));
+  --shadowy-text-blur: blur(1px);
+  
+}
+
+.glossy-text {
+  font-size: 3rem;
+  font-weight: bold;
+  background: repeating-linear-gradient(120deg, rgba(245, 96, 3, 0.928), rgba(30, 27, 27, 0.765),  rgba(245, 96, 3, 0.716));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  position: relative;
 }
 
 main{
@@ -31,45 +48,201 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: relative; */
+  position: relative;
   perspective: 1000;
-  background: linear-gradient(180deg, white 50%, rgb(255, 183, 0) 50% );
+  /* background: url('/assets/images/IMG-20251005-WA0029.jpg'); */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  /* width: 100%; */
+  /* background: linear-gradient(180deg, rgb(195, 190, 190) 50%, rgb(152, 226, 5) 70% ); */
 }
 
-.main-content-div{
-  width: 80vw;
-  position: relative;
+/* main::after{
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(24, 24, 24, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+} */
+
+.container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* min-width: 768px; */
 }
 
-.main-content{
-  text-transform: uppercase;
-  font-size: 10vw;
-  font-family: var(--suse-extra-bold) !important;
-  word-spacing: .5px !important;
-  color: transparent;
-  -webkit-text-stroke: .5px black;
-  /* outline: .1px solid black; */
-animation: changeTextSize 1000ms forwards;
-}
-
-
-.main-content-watermark{
+.container::after{
+  content: '';
   position: absolute;
-  left: 20%;
-  top: 20%;
-  font-size: 10vw;
+  top: 0;left: 0;
+  height: 100%; width: 100%;
+  background: rgba(0, 0, 0, 0.279);
+  z-index: 10;
+}
+
+.poster-image{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0; right: 0;
+  background: url(/assets/images/IMG-20251005-WA0029.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7);
+  z-index: 2
+}
+
+.hero .hero-text{
+  /* line-height: 5vh; */
+  color: white;
   font-weight: bolder;
-  color: red;
-  font-family: var(--great-vibes) !important;
-  transform: rotateZ(-45deg) ;
+  position: absolute;
+  z-index: 11 !important;
+  padding: 5%;
+  text-align: left;
+  /* background: white; */
+  /* font-size: xx-large; */
+}
+
+.hero .hero-text span{
+  color: var(--shadowy-text);
+}
+
+.big-shadowy-text{
+  font-family: var(--suse-extra-bold) !important;
+  font-size: 20vw;
+  /* font-weight: bolder; */
+  line-height: 35px;
+  text-transform: uppercase;
+  padding: 0; margin: 0;
+  /* color: white; */
+  /* color: var(--shadowy-text); */
+  /* filter: var(--shadowy-text-blur); */
+}
+
+.glass-text{
+  position: absolute;
+  color: white;
+  font-weight: bolder;
+  font-size: larger;
+  height: fit-content;
+  display: flex;
+  padding: 2%;
+  align-items: center;
+  justify-content: right;
+/* align-items: center; */
+  background: rgb(15 11 11 / 43%);
+  backdrop-filter: blur(25px);
+  border-radius: 5px;
+  z-index: 3;
+  text-align: right;
+}
+/*  */
+
+@media (max-width: 400px) {
+
+  /* Styles for tablets and smaller screens */
+  .poster-image{
+    /* width: 100vw;
+    height: 100vh; */
+    border-radius: 0 0 0 0;
+  }
+  .glass-text {
+    padding: 20px;
+    font-size: 14px;
+    margin: 20px;
+    bottom: 0;
+  }
+}
+
+@media (min-width:400px) {
+  .container{
+    min-width: 400px;
+  }
+
+  .hero-text .big-shadowy-text{
+    font-size: 20vw;
+  }
+  .big-shadowy-text{
+  font-size: 10vw;
+  }
+  .poster-image{
+    width: 100%;
+  }
+
+  .hero-text{
+    line-height: 40px;
+    /* height: fit-content; */
+  }
+  .glass-text{
+    /* bottom: ; */
+    /* width: auto; */
+    height: fit-content;
+    width: fit-content;
+    line-height: 25px;
+    right: 0;
+    /* padding: 30px; */
+    /* text-align: center; */
+    top: 70%; left: 30%;
+  }
+}
+@media (min-width:768px) {
+  .container{
+    min-width: 768px;
+    backdrop-filter: blur(5px);
+    /* filter: blur(5px); */
+    /* z-index: 1 !important; */
+    background: repeating-linear-gradient( 120deg , rgba(248, 199, 1, 0.9), rgba(249, 48, 3, 0.843), rgba(168, 2, 30, 0.69));
+  }
+
+  .poster-image{
+    width: 40%;
+    height: 90%;
+    border-radius: 0 0 30% 30%;
+    left: 0;
+    margin-left: 10%;
+  }
+
+  .hero-text, 
+  .glass-text{
+    right: 0 !important;
+    text-align: right !important;
+  }
 }
 
 @keyframes changeTextSize {
-  from{
-    font-size: 70vw;
-  } to{
-    font-size: 15vw;
+  0%{
+    /* font-size: 70vw; */
+    transform: translateX(200vw) rotateY(45deg) skew(-10deg)  scale(5);
+    /* right: 0; */
+    color: transparent;
+    -webkit-text-stroke: .5px black; 
+  /* outline: .1px solid black; */
+    opacity: 0;
+  } 
+  40%{
+    transform: translateX(20vw) scale(2);
+    opacity: 1;
+  }
+  70%{
+    transform: rotateY(0deg) skewX(0deg) ;
+    -webkit-text-stroke: initial; 
+    /* outline: initial; */
+    /* transform: rotateY(30deg); */
+  }
+  100%{
+    transform: translateX(0) scale(1)  skewX(0deg);
   }
 }

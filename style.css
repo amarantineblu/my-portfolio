@@ -25,8 +25,8 @@
   --text-animation:changeTextSize 3s  forwards;
   --text-transform-origin: center center;
 
-  /* --shadowy-text: rgba(211, 202, 185, 0.723); */
-  --shadowy-text: repeating-linear-gradient(90deg, rgba(208, 84, 7, 0.567), rgba(0, 0, 0, 0.8), rgba(234, 13, 94, 0.567));
+  --shadowy-text: rgba(255, 254, 251, 0.799);
+  /* --shadowy-text: repeating-linear-gradient(90deg, rgba(208, 84, 7, 0.567), rgba(0, 0, 0, 0.8), rgba(234, 13, 94, 0.567)); */
   --shadowy-text-blur: blur(1px);
   
 }
@@ -34,7 +34,7 @@
 .glossy-text {
   font-size: 3rem;
   font-weight: bold;
-  background: repeating-linear-gradient(120deg, rgba(245, 96, 3, 0.928), rgba(30, 27, 27, 0.765),  rgba(245, 96, 3, 0.716));
+  background: var(--shadowy-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
@@ -58,35 +58,18 @@ main{
   /* background: linear-gradient(180deg, rgb(195, 190, 190) 50%, rgb(152, 226, 5) 70% ); */
 }
 
-/* main::after{
-  content: '';
-  position: absolute;
-  width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  box-shadow: 0 4px 30px rgba(24, 24, 24, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-} */
-
 .container{
   width: 100%;
   height: 100%;
   position: relative;
-  /* min-width: 768px; */
+  perspective: 1000px;
 }
 
 .container::after{
   content: '';
   position: absolute;
   top: 0;left: 0;
+  /* backdrop-filter: blur(px); */
   height: 100%; width: 100%;
   background: rgba(0, 0, 0, 0.279);
   z-index: 10;
@@ -101,7 +84,11 @@ main{
   background-size: cover;
   background-position: center;
   filter: brightness(0.7);
-  z-index: 2
+}
+
+.hero{
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .hero .hero-text{
@@ -112,12 +99,30 @@ main{
   z-index: 11 !important;
   padding: 5%;
   text-align: left;
-  /* background: white; */
-  /* font-size: xx-large; */
+  background-blend-mode: overlay;
+  transform: skew(2.5deg, .5deg);
+  mix-blend-mode: overlay;
+  animation: changeTextSize 2s forwards;
+
 }
+
+.hero .hero-text::after{
+  content: '';
+  background: linear-gradient(180deg, #022b4799, transparent);
+  left: 0; top: -10px;
+  height: 300%; width: 100%;
+  position: absolute;
+  mix-blend-mode: overlay;
+  z-index: 1;
+  animation: changeTextSize 500ms forwards;
+
+}
+
 
 .hero .hero-text span{
   color: var(--shadowy-text);
+  text-shadow: 20px 4px 8px rgba(0, 0, 0, .2);
+  animation: changeTextSize 5s forwards;
 }
 
 .big-shadowy-text{
@@ -127,49 +132,34 @@ main{
   line-height: 35px;
   text-transform: uppercase;
   padding: 0; margin: 0;
-  /* color: white; */
-  /* color: var(--shadowy-text); */
-  /* filter: var(--shadowy-text-blur); */
 }
 
 .glass-text{
   position: absolute;
   color: white;
   font-weight: bolder;
-  font-size: larger;
+  /* font-size: larger; */
   height: fit-content;
   display: flex;
-  padding: 2%;
+  padding: 20px;
   align-items: center;
   justify-content: right;
 /* align-items: center; */
   background: rgb(15 11 11 / 43%);
-  backdrop-filter: blur(25px);
+  backdrop-filter: blur(5px);
   border-radius: 5px;
   z-index: 3;
   text-align: right;
+  bottom: 0;
+  margin: 20px;
+
 }
 /*  */
-
-@media (max-width: 400px) {
-
-  /* Styles for tablets and smaller screens */
-  .poster-image{
-    /* width: 100vw;
-    height: 100vh; */
-    border-radius: 0 0 0 0;
-  }
-  .glass-text {
-    padding: 20px;
-    font-size: 14px;
-    margin: 20px;
-    bottom: 0;
-  }
-}
 
 @media (min-width:400px) {
   .container{
     min-width: 400px;
+    transform-style: preserve-3d;
   }
 
   .hero-text .big-shadowy-text{
@@ -184,8 +174,21 @@ main{
 
   .hero-text{
     line-height: 40px;
+    /* perspective: 1000px; */
+    transform-style: preserve-3d;
+    /* background: #000; */
+    /* transform: rotateY(.5deg); */
+    width: fit-content;
+    /* z-index: 1000; */
     /* height: fit-content; */
   }
+
+  .hero-text .big-shadowy-text{
+    /* transform: rotateX(40deg) !important; */
+    text-shadow: -20px 4px 8px rgba(0, 0, 0, .5);
+    /* background: #000; */
+  }
+
   .glass-text{
     /* bottom: ; */
     /* width: auto; */
@@ -193,56 +196,72 @@ main{
     width: fit-content;
     line-height: 25px;
     right: 0;
+    padding: 5px;
+    margin: 0;
     /* padding: 30px; */
     /* text-align: center; */
     top: 70%; left: 30%;
   }
 }
+
+@media (min-width:500px) {
+  
+}
+
 @media (min-width:768px) {
   .container{
     min-width: 768px;
     backdrop-filter: blur(5px);
     /* filter: blur(5px); */
     /* z-index: 1 !important; */
-    background: repeating-linear-gradient( 120deg , rgba(248, 199, 1, 0.9), rgba(249, 48, 3, 0.843), rgba(168, 2, 30, 0.69));
   }
 
+  .hero-text{
+    line-height: 70px;
+  }
+
+  .hero-text::after{
+    content: unset !important;
+    background: unset;
+  }
+
+  .hero-text .big-shadowy-text{
+    font-size: 15vw;
+  }
   .poster-image{
     width: 40%;
-    height: 90%;
-    border-radius: 0 0 30% 30%;
-    left: 0;
-    margin-left: 10%;
+    height: 95%;
+    border-radius: 5px;
+    left: 0; bottom: unset;
+    margin: 1%;
+    z-index: 11;
+  }
+
+  .poster-image::after{
+    content: 'Marcus Lebanon Elioma';
+    position: absolute;
+    bottom: 0; right: 0;
+    padding: 5px; border-radius: 5px;
+    height: 5%; background: white;
   }
 
   .hero-text, 
   .glass-text{
-    right: 0 !important;
+    left: unset;
+    /* right: 0 !important; */
     text-align: right !important;
   }
+
 }
 
 @keyframes changeTextSize {
-  0%{
+  from{
     /* font-size: 70vw; */
-    transform: translateX(200vw) rotateY(45deg) skew(-10deg)  scale(5);
-    /* right: 0; */
-    color: transparent;
-    -webkit-text-stroke: .5px black; 
-  /* outline: .1px solid black; */
+    transform: translateY(100%) translateX(100%) scale(5);
     opacity: 0;
   } 
-  40%{
-    transform: translateX(20vw) scale(2);
-    opacity: 1;
-  }
-  70%{
-    transform: rotateY(0deg) skewX(0deg) ;
-    -webkit-text-stroke: initial; 
-    /* outline: initial; */
-    /* transform: rotateY(30deg); */
-  }
-  100%{
-    transform: translateX(0) scale(1)  skewX(0deg);
+  
+  to{
+    transform: translateX(0) scale(1) skewX(initial);
   }
 }

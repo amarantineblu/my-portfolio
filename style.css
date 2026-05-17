@@ -26,6 +26,14 @@
   --base-100: #fafaf0;
   --base-200: #deded5;
   --base-300: #0f0f0f;
+
+  --solar-flare-1: #e8003a;
+  --solar-flare-2: #ffaa00;
+
+  --dusk-1: #2b00ff;
+  --dusk-2: #ff5cba;
+
+  --toxic-green: #00ff89;
 }
 
 body {
@@ -57,16 +65,27 @@ a {
   text-decoration: none;
 }
 nav {
+  background: linear-gradient(
+    135deg,
+    var(--solar-flare-1),
+    var(--solar-flare-2)
+  );
   z-index: 3;
   position: absolute;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 .navbar {
   border-radius: 25px; /* Adjust value as needed */
 }
 
+.navbar a{
+  font-weight: bolder;
+  color: var(--base-100) !important;
+}
 .img {
   clip-path: path(
-    "M 40,80 L 140,80 A 10,10 0,0,0 160,60 L 160,20 A 10,10 0,0,1 180,0 A 10,10 0,0,1 280,0 L 300,20 L 300,380 A 10,10 0,0,1 280,400 L 20,400 A 10,10 0,0,1 0,380 A 10,10 0,0,1 0,100 A 10,10 0,0,1 20,80 Z"
+    "M 40,80 L 140,80 A 20,20 0,0,0 160,60 L 160,20 A 20,20 0,0,1 180,0 A 20,20 0,0,1 280,0 L 300,20 L 300,380 A 20,20 0,0,1 280,400 L 20,400 A 20,20 0,0,1 0,380 A 20,20 0,0,1 0,100 A 20,20 0,0,1 20,80 Z"
   );
 }
 img {

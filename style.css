@@ -85,7 +85,7 @@ nav button {
   border: none;
   cursor: pointer;
   color: var(--base-100) !important;
-  font-size: .3em;
+  font-size: 0.3em;
   font-weight: bolder !important;
 }
 
@@ -94,7 +94,6 @@ nav button {
   color: var(--base-100) !important;
 }
 .hero-img img {
- 
   clip-path: url(#smoothBox);
 }
 
@@ -107,17 +106,16 @@ nav button {
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(
-    -135deg,
-    var(--solar-flare-1) 0px,
-    transparent 10px,
-    transparent 20px
+    45deg,
+    /* diagonal stripes */ #e63946 0 20px,
+    /* red stripe */ transparent 20px 40px /* white stripe */
   );
+  z-index: -1; /* behind the image */
+  transform: translate(-2%, -2%);
   width: 30%;
   height: 30%;
-  top: -2;
-  left: -3;
-  z-index: -1;
-  clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
+  top: -2px;
+  left: -2px;
 }
 
 img {
@@ -188,7 +186,10 @@ body.home {
 
   .spotlight {
     gap: 5rem;
-    top: -5rem;
+    justify-content: center;
+    align-items: center;
+    height: 100vh ;
+    overflow: hidden !important;
   }
 
   .spotlight .card {
@@ -196,6 +197,10 @@ body.home {
   }
   .spotlight .row {
     flex-direction: row;
+  }
+
+  body.home {
+    overflow: hidden;
   }
 
   .img {

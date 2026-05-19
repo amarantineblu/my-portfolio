@@ -86,7 +86,7 @@ nav button {
   cursor: pointer;
   color: var(--base-100) !important;
   font-size: 0.3em;
-  font-weight: bolder !important;
+  border-radius: 25px !important; /* Adjust value as needed */
 }
 
 .navbar a {
@@ -166,6 +166,25 @@ body.home {
   /* overflow: hidden; */
 }
 
+.hero,
+.outro {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem;
+  background-color: var(--base-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero h1,
+.outro h1 {
+  width: 60%;
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   h1,
   h2 {
@@ -188,7 +207,7 @@ body.home {
     gap: 5rem;
     justify-content: center;
     align-items: center;
-    height: 100vh ;
+    height: 100vh;
     overflow: hidden !important;
   }
 

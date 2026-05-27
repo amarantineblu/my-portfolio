@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    @font-face {
+      font-family: "SUSE";
+      src: url(assets/fonts/SUSE/static/SUSE-Regular.ttf);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "SUSE";
+      list-style: none;
+      text-decoration: none;
+      color: #000 !important;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar,
+    .actions {
+      background: wheat;
+      padding: 0 2rem;
+      border-radius: 15px;
+      /* height: 3rem; */
+    }
+
+    nav ul,
+    nav .actions {
+      /* display: none; */
+    }
+
+    nav .menu-bar {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5px;
+      justify-content: center;
+      align-items: center;
+      line-height: 1rem;
+    }
+
+    nav .menu-bar span {
+      font-size: 3rem;
+      width: 1em;
+      font-weight: bolder !important;
+    }
+
+    @media (min-width: 768px) {
+      nav,
+      nav .navbar,
+      nav .navbar ul,
+      nav .actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between !important;
+        gap: 2rem;
+      }
+
+      .navbar {
+        width: 85vw;
+      }
+
+      nav {
+        margin: 1rem;
+      }
+
+      .navbar, .actions{
+        height: 3rem;
+      }
+      button {
+        font-weight: lighter;
+        font-size: 1em;
+        border-radius: 5px;
+        border: none;
+        height: 2.3rem;
+        width: 8rem;
+      }
+    }
+  </style>
+  <body>
+    <nav>
+      <div class="navbar">
+        <div class="logo"><a href="#"> My Logo </a></div>
+        <ul>
+          <li><a href="#"> About </a></li>
+          <li><a href="#">Portfolio </a></li>
+          <li><a href="#">Contact </a></li>
+        </ul>
+      </div>
+      <button class="menu-bar">
+        <span>-</span> <span>-</span> <span>-</span>
+      </button>
+      <div class="actions">
+        <button>Get a Quote</button>
+      </div>
+    </nav>
+  </body>
+</html>

@@ -34,15 +34,42 @@
   --dusk-2: #ff5cba;
 
   --toxic-green: #00ff89;
+  --metallic-silver: #c0c0c0;
+  --alpine-blue: #0090ff;
+  --bwt-pink: #ff4db8;
+  --audi-red: #bb0830;
 }
 
 body {
   background: var(--base-200);
 }
+
+.circle {
+  filter: blur(350px);
+}
+
+body.home {
+  position: relative;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 h1,
 h2 {
   font-weight: 500;
   line-height: 1.1;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: #000;
+  width: calc(30px * var(--size));
+  height: calc(30px * var(--size));
+  top: calc(30px * var(--size));
+  left: calc(30px * var(--size));
+  z-index: -2;
+  overflow: hidden;
 }
 
 h1 {
@@ -70,23 +97,33 @@ nav {
   position: absolute;
   z-index: 3;
 }
-nav * {
-  background: linear-gradient(
-    135deg,
-    var(--solar-flare-1),
-    var(--solar-flare-2)
-  );
+nav ul,
+nav .navbar-brand,
+nav button {
+  background: linear-gradient(135deg, var(--alpine-blue), var(--solar-flare-1));
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border-radius: 25px; /* Adjust value as needed */
+  padding: 5px 15px;
+  box-shadow: inset rgba(82, 80, 80, 0.167) 5px 5px 5px;
+  border-radius: 5px; /* Adjust value as needed */
+}
+
+nav ul {
+  margin: 5px 0;
+}
+nav ul li {
+  padding: 2px 15px;
 }
 
 nav button {
   border: none;
-  cursor: pointer;
   color: var(--base-100) !important;
   font-size: 0.3em;
-  border-radius: 25px !important; /* Adjust value as needed */
+  border-radius: 5px !important; /* Adjust value as needed */
+}
+
+nav .actions {
+  margin: 2px 15px;
 }
 
 .navbar a {
@@ -181,8 +218,8 @@ body.home {
 
 .hero h1,
 .outro h1 {
-  width: 60%;
-  text-align: center;
+  font-size: 10rem;
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
@@ -224,5 +261,27 @@ body.home {
 
   .img {
     width: 70%;
+  }
+
+  nav ul {
+    width: 90%;
+    justify-content: end;
+  }
+
+  nav .navbar-nav {
+    width: 95%;
+  }
+
+  nav.navbar {
+    margin: 2rem 3rem;
+  }
+
+  .circle {
+    width: calc(200px * var(--size));
+    height: calc(200px * var(--size));
+    top: calc(30px * var(--size));
+    left: calc(30px * var(--size));
+    z-index: -2;
+    overflow: hidden;
   }
 }

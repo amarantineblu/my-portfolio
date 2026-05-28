@@ -100,7 +100,7 @@ nav {
 nav ul,
 nav .navbar-brand,
 nav button {
-  background: linear-gradient(135deg, var(--alpine-blue), var(--solar-flare-1));
+  background: linear-gradient(135deg, var(--base-300), var(--metallic-silver));
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 5px 15px;
@@ -117,8 +117,8 @@ nav ul li {
 
 nav button {
   border: none;
-  color: var(--base-100) !important;
   font-size: 0.3em;
+  color: var(--base-100) !important;
   border-radius: 5px !important; /* Adjust value as needed */
 }
 
@@ -225,9 +225,17 @@ body.home {
   -webkit-text-stroke-width: 1px;
 }
 
-.about{
-  background: var(--solar-flare-1) !important;
+
+
+li .nav-link.active{
+  background: var(--base-200) !important;
+  border-radius: 5px;
 }
+
+
+.navbar-toggler{
+  background:transparent;
+  }
 @media (min-width: 768px) {
   h1,
   h2 {

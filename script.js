@@ -6,17 +6,11 @@ const currentPage = window.location.pathname;
 const navLinks = document.querySelectorAll(" nav ul li a");
 
 let currentNavLink;
-currentPage === currentNavLink && activeNavLink;
-console.log(navLinks);
+// currentPage === currentNavLink && activeNavLink;
 navLinks.forEach(navLink => {
-  navLink.addEventListener('click', (e) => {
-    console.log('the current page is' + e.target.pathname);
-    console.log('the current page is' + currentPage);
-    e.target.getAttribute('href')  === currentPage.split('/').pop() && e.target.classList.add('active');
-  });
+  const parent = navLink.parentElement;
+  navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
 });
-
-
 
 let count = 0;
 navBarToggleBtn.addEventListener("click", (e) => {

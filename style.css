@@ -33,6 +33,10 @@
   --dusk-1: #2b00ff;
   --dusk-2: #ff5cba;
 
+  --dusk-1-translucent: #2b00ff41;
+  --dusk-2-translucent: #ff5cbb55;
+
+
   --toxic-green: #00ff89;
   --metallic-silver: #c0c0c0;
   --alpine-blue: #0090ff;
@@ -237,29 +241,31 @@ body.home {
 
 .hero .card {
   padding: 2rem;
-  background-color: var(--dusk-2);
+  background-color: var(--dusk-2-translucent);
   top: 20% !important;
   border-radius: 1rem;
-  height: 60%;
+  height: 50%;
 }
 
 .hero .contact-links {
   padding: 2rem;
-  background-color: var(--dusk-1);
+  background-color:  var(--dusk-1-translucent);
   border-radius: 1rem;
   z-index: 5;
   height: 40%;
 }
 
-.hero .contact-links p {
+
+.hero .contact-links p, .hero .card span {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 900;
   color: var(--base-100) !important;
 }
 
 .hero .contact-links p i {
   margin-right: 1rem;
-  color: var(--bwt-pink) !important;
+  font-weight: 900 ;
+  font-size: 2rem;
 }
 
 
@@ -297,7 +303,7 @@ li .nav-link.active{
     gap: 5rem;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     overflow: hidden !important;
   }
 
@@ -347,8 +353,12 @@ li .nav-link.active{
   text-transform: uppercase;
 }
 
+.hero .card{
+  width: 30%;
+  right: 5%;
+}
+
 .hero .card, .hero .contact-links{
-  width: 100%;
   display: flex;
   justify-content: space-between;
 }

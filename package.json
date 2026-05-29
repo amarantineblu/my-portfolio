@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/amarantineblu/my-portfolio/issues"
   },
-  "homepage": "https://github.com/amarantineblu/my-portfolio#readme"
+  "homepage": "https://github.com/amarantineblu/my-portfolio#readme",
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
 }

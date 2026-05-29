@@ -100,9 +100,10 @@ nav {
 nav ul,
 nav .navbar-brand,
 nav button {
-  background: linear-gradient(135deg, var(--base-300), var(--metallic-silver));
+  background: linear-gradient(135deg, var(--base-200), var(--metallic-silver));
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  border: 3px solid var(--dusk-2);
   padding: 5px 15px;
   box-shadow: inset rgba(82, 80, 80, 0.167) 5px 5px 5px;
   border-radius: 5px; /* Adjust value as needed */
@@ -117,6 +118,7 @@ nav ul li {
 
 nav button {
   border: none;
+  border: 3px solid var(--dusk-2);
   font-size: 0.3em;
   color: var(--base-100) !important;
   border-radius: 5px !important; /* Adjust value as needed */
@@ -218,9 +220,9 @@ body.home {
 
 .hero h1,
 .outro h1 {
-  font-size: 2rem;
+  font-size: 5rem;
   text-transform: uppercase;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
 }
@@ -230,6 +232,8 @@ body.home {
 li .nav-link.active{
   background: var(--base-200) !important;
   border-radius: 5px;
+  border: 3px solid var(--bwt-pink);
+  padding-left: 10px !important;
 }
 
 

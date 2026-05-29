@@ -229,7 +229,7 @@ body.home {
   -webkit-text-stroke-width: 1px;
 }
 
-.hero .card, .hero .row{
+.hero .card, .hero .contact-links{
   position: absolute;
   bottom: calc(30px * var(--position));
   width: 100%;
@@ -238,15 +238,28 @@ body.home {
 .hero .card {
   padding: 2rem;
   background-color: var(--dusk-2);
+  top: 20% !important;
   border-radius: 1rem;
-  height: 30%;
+  height: 60%;
 }
 
-.hero .row {
+.hero .contact-links {
   padding: 2rem;
-  background-color: var(--dusk-2);
+  background-color: var(--dusk-1);
   border-radius: 1rem;
-  height: 30%;
+  z-index: 5;
+  height: 40%;
+}
+
+.hero .contact-links p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--base-100) !important;
+}
+
+.hero .contact-links p i {
+  margin-right: 1rem;
+  color: var(--bwt-pink) !important;
 }
 
 
@@ -332,5 +345,11 @@ li .nav-link.active{
 .outro h1 {
   font-size: 10rem;
   text-transform: uppercase;
+}
+
+.hero .card, .hero .contact-links{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 }

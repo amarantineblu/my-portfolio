@@ -243,6 +243,8 @@ body.home {
   -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
+  width: 0px !important;
+  animation: typing 3.5s steps(30) forwards ,blink 0.75s step-end infinite;
 }
 
 .hero .card,
@@ -421,3 +423,19 @@ li .nav-link.active {
     height: auto !important;
   }
 }
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+ @keyframes blink {
+  from, to {
+    border-color: transparent;}
+  50% {
+    border-color: initial;}
+  
+ }

@@ -312,9 +312,7 @@ li .nav-link.active {
   font-size: 5rem;
 }
 
-.experience-detail .row .col:nth-child(3) {
-  width: 60%;
-}
+
 
 .about-hero-card {
   width: 100% !important;
@@ -408,6 +406,9 @@ li .nav-link.active {
     justify-content: space-between;
   }
 
+  .experience-detail .row .col:nth-child(3) {
+    width: 60%;
+  }
   .experience-detail .row {
     width: 80%;
     justify-self: center;

@@ -22,6 +22,7 @@
   font-family: "SUSE";
   src: url("assets/fonts/SUSE/static/SUSE-ExtraBold.ttf");
 }
+
 :root {
   --base-100: #fafaf0;
   --base-200: #deded5;
@@ -101,6 +102,7 @@ nav {
   position: absolute;
   z-index: 3;
 }
+
 nav ul,
 nav .navbar-brand,
 nav button {
@@ -110,12 +112,14 @@ nav button {
   border: 3px solid var(--dusk-2);
   padding: 5px 15px;
   box-shadow: inset rgba(82, 80, 80, 0.167) 5px 5px 5px;
-  border-radius: 5px; /* Adjust value as needed */
+  border-radius: 5px;
+  /* Adjust value as needed */
 }
 
 nav ul {
   margin: 5px 0;
 }
+
 nav ul li {
   padding: 2px 15px;
 }
@@ -125,7 +129,8 @@ nav button {
   border: 3px solid var(--dusk-2);
   font-size: 0.3em;
   color: var(--base-100) !important;
-  border-radius: 5px !important; /* Adjust value as needed */
+  border-radius: 5px !important;
+  /* Adjust value as needed */
 }
 
 nav .actions {
@@ -136,6 +141,7 @@ nav .actions {
   font-weight: bolder;
   color: var(--base-100) !important;
 }
+
 .hero-img img {
   clip-path: url(#smoothBox);
 }
@@ -144,16 +150,20 @@ nav .actions {
   position: relative;
   overflow: visible;
 }
+
 .hero-img::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    /* diagonal stripes */ #e63946 0 20px,
-    /* red stripe */ transparent 20px 40px /* white stripe */
-  );
-  z-index: -1; /* behind the image */
+  background: repeating-linear-gradient(45deg,
+      /* diagonal stripes */
+      #e63946 0 20px,
+      /* red stripe */
+      transparent 20px 40px
+      /* white stripe */
+    );
+  z-index: -1;
+  /* behind the image */
   transform: translate(-2%, -2%);
   width: 30%;
   height: 30%;
@@ -178,6 +188,7 @@ img {
   /* overflow: hidden; */
   top: -2rem;
 }
+
 .spotlight .row {
   flex-direction: column;
   justify-content: center;
@@ -228,12 +239,14 @@ body.home {
 .outro h1 {
   font-size: 5rem;
   text-transform: uppercase;
+  background-attachment: fixed !important;
   -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
 }
 
-.hero .card, .hero .contact-links{
+.hero .card,
+.hero .contact-links {
   position: absolute;
   bottom: calc(30px * var(--position));
   width: 100%;
@@ -242,21 +255,24 @@ body.home {
 .hero .card {
   padding: 2rem;
   background-color: var(--dusk-2-translucent);
-  top: 20% !important;
+  top: 10% !important;
   border-radius: 1rem;
   height: 50%;
 }
 
 .hero .contact-links {
   padding: 2rem;
-  background-color:  var(--dusk-1-translucent);
+  background-color: var(--dusk-1-translucent);
   border-radius: 1rem;
   z-index: 5;
-  height: 40%;
+  height: 50%;
 }
 
 
-.hero .contact-links p, .hero .card span {
+.hero .contact-links p,
+.hero .card span,
+.hero .card li,
+.hero .card h2 {
   font-size: 1rem;
   font-weight: 900;
   color: var(--base-100) !important;
@@ -264,24 +280,49 @@ body.home {
 
 .hero .contact-links p i {
   margin-right: 1rem;
-  font-weight: 900 ;
+  font-weight: 900;
   font-size: 2rem;
 }
 
 
-li .nav-link.active{
-  background: var(--dusk-1) !important;
+li .nav-link.active {
+  background: var(--audi-red) !important;
   border-radius: 5px;
   border: 3px solid var(--bwt-pink);
   padding-left: 10px !important;
 }
 
 
-.navbar-toggler{
-  background:transparent;
-  }
+
+.navbar-toggler {
+  background: transparent;
+}
+
+/* .about, .about-hero{
+    background: var(--audi-red) !important;
+  } */
+
+
+.experience-detail .row {
+  border-bottom: 3px solid var(--audi-red);
+}
+
+.hero i,
+.experience-detail i {
+  font-size: 5rem;
+}
+
+.experience-detail .row .col:nth-child(3) {
+  width: 60%;
+}
+
+.about-hero-card {
+  width: 100% !important;
+  height: auto !important;
+}
 
 @media (min-width: 768px) {
+
   h1,
   h2 {
     letter-spacing: 0;
@@ -310,6 +351,7 @@ li .nav-link.active{
   .spotlight .card {
     width: 75%;
   }
+
   .spotlight .row {
     flex-direction: row;
   }
@@ -344,22 +386,37 @@ li .nav-link.active{
     overflow: hidden;
   }
 
-  .hero, .outro{
+  .hero,
+  .outro {
     flex-direction: row;
   }
+
   .hero h1,
-.outro h1 {
-  font-size: 10rem;
-  text-transform: uppercase;
-}
+  .outro h1 {
+    font-size: 10rem;
+    text-transform: uppercase;
+  }
 
-.hero .card{
-  width: 30%;
-  right: 5%;
-}
+  .hero .card {
+    width: 30%;
+    right: 5%;
+  }
 
-.hero .card, .hero .contact-links{
-  display: flex;
-  justify-content: space-between;
-}
+  .hero .card,
+  .hero .contact-links {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .experience-detail .row {
+    width: 80%;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-hero-card {
+    width: 50% !important;
+    height: auto !important;
+  }
 }

@@ -147,10 +147,18 @@ nav .actions {
 }
 
 .hero-img {
-  position: relative;
+  position: absolute;
   overflow: visible;
+  position: absolute ;
+  width: 100vw; height: 100vh; top: -10px; left: 0;
+  z-index: -2;
 }
 
+.home .spotlight .home-text{
+  position: absolute;
+  top: 20%;
+  padding: 2rem;
+}
 .hero-img::before {
   content: "";
   position: absolute;
@@ -243,8 +251,8 @@ body.home {
   -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
-  width: 0px !important;
-  animation: typing 3.5s steps(30) forwards ,blink 0.75s step-end infinite;
+  animation: typing 3.5s steps(30) forwards ,
+  blink 0.75s step-end infinite;
 }
 
 .hero .card,
@@ -422,6 +430,21 @@ li .nav-link.active {
     width: 50% !important;
     height: auto !important;
   }
+
+  .home .spotlight .home-text {
+    padding: 2rem;
+    background-color: var(--dusk-2-translucent);
+    top: 10% !important;
+    border-radius: 1rem;
+    height: auto; width: 50%;
+  }
+  .hero-img {
+  position: relative;
+  overflow: visible;
+  position: absolute ;
+  width: 60vw; height: auto; top: -10px; left: 50%;
+  z-index: -2;
+}
 }
 
 @keyframes typing {

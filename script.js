@@ -4,12 +4,10 @@ const menu_bar = document.querySelector("#menu-bar");
 
 const currentPage = window.location.pathname;
 const navLinks = document.querySelectorAll(" nav ul li a");
-
-let currentNavLink;
 // currentPage === currentNavLink && activeNavLink;
-navLinks.forEach(navLink => {
+navLinks.forEach(navLink => { 
   const parent = navLink.parentElement;
-  navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
+  !currentPage === '/' && navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
 });
 
 let count = 0;

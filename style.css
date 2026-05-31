@@ -150,13 +150,13 @@ nav .actions {
   position: absolute;
   overflow: visible;
   position: absolute ;
-  width: 100vw; height: 100vh; top: -10px; left: 0;
+  width: 100vw; height: 100vh; top: 10%; left: 0;
   z-index: -2;
 }
 
 .home .spotlight .home-text{
   position: absolute;
-  top: 20%;
+  top: 40%;
   padding: 2rem;
 }
 .hero-img::before {
@@ -322,6 +322,10 @@ li .nav-link.active {
   font-size: 5rem;
 }
 
+.experience-detail .row .col img {
+  width: 5rem;
+}
+
 
 
 .about-hero-card {
@@ -434,10 +438,16 @@ li .nav-link.active {
   .home .spotlight .home-text {
     padding: 2rem;
     background-color: var(--dusk-2-translucent);
-    top: 10% !important;
+    top: 10% !important; left: 5% !important;
     border-radius: 1rem;
     height: auto; width: 50%;
   }
+
+  .home .spotlight .home-text * {
+    color: var(--base-100) !important;
+    
+  }
+
   .hero-img {
   position: relative;
   overflow: visible;

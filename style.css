@@ -143,7 +143,7 @@ nav .actions {
 }
 
 .hero-img img {
-  clip-path: url(#smoothBox);
+  /* clip-path: url(#smoothBox); */
 }
 
 .hero-img {
@@ -152,12 +152,15 @@ nav .actions {
   position: absolute ;
   width: 100vw; height: 100vh; top: 10%; left: 0;
   z-index: -2;
+  animation: re_arrange_small 3000ms 500ms forwards ;
 }
 
 .home .spotlight .home-text{
   position: absolute;
   top: 40%;
   padding: 2rem;
+  animation: home_text_reveal 400ms 3000ms forwards;
+
 }
 .hero-img::before {
   content: "";
@@ -440,7 +443,7 @@ li .nav-link.active {
     background-color: var(--dusk-2-translucent);
     top: 10% !important; left: 5% !important;
     border-radius: 1rem;
-    height: auto; width: 50%;
+    height: auto; width: 30%;
   }
 
   .home .spotlight .home-text * {
@@ -452,8 +455,8 @@ li .nav-link.active {
   position: relative;
   overflow: visible;
   position: absolute ;
-  width: 60vw; height: auto; top: -10px; left: 50%;
-  z-index: -2;
+  width: 100vw; height: auto; 
+  animation: re_arrange 3000ms 500ms forwards;
 }
 }
 
@@ -471,4 +474,36 @@ li .nav-link.active {
   50% {
     border-color: initial;}
   
+ }
+
+ @keyframes re_arrange {
+  from{
+    top: -50%;
+    z-index: 10;
+    width: 100vw;
+  } to{
+    z-index: -2;
+    width: 40%;
+    left: 50%;
+  }
+ }
+
+ @keyframes re_arrange_small {
+  from{
+    z-index: 20;
+  }
+  to{
+    z-index: -2;
+  }
+ }
+
+ @keyframes home_text_reveal {
+  from{
+    left: -35%;
+    opacity: .4;
+  }
+  to{
+    left: initial;
+    opacity: 1;
+  }
  }

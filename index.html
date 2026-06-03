@@ -7,13 +7,68 @@
   <title>Marcus Lebanon Elioma - Personal Portfolio Website</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+  <style>
+    .skill-btn {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 2rem;
+      cursor: grab;
+      transition: transform 0.3s;
+      z-index: 1000;
+    }
+
+    .skill-btn:hover {
+      transform: scale(1.2);
+    }
+
+    
+  </style>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="home">
 
+  <!-- Skill Buttons -->
+  <!-- Existing skills -->
+  <div class="skill-btn react"><i class="devicon-react-original"></i></div>
+  <div class="skill-btn flutter"><i class="devicon-flutter-plain"></i></div>
+  <div class="skill-btn dart"><i class="devicon-dart-plain"></i></div>
+  <div class="skill-btn html"><i class="devicon-html5-plain"></i></div>
+  <div class="skill-btn css"><i class="devicon-css3-plain"></i></div>
+  <div class="skill-btn js"><i class="devicon-javascript-plain"></i></div>
+  
+  <!-- New skills -->
+  <div class="skill-btn laravel"><i class="devicon-laravel-plain"></i></div>
+  <div class="skill-btn livewire"><i class="fa-solid fa-bolt"></i></div>
+  <div class="skill-btn github"><i class="devicon-github-original"></i></div>
+  <div class="skill-btn solidworks"><i class="fa-solid fa-cube"></i></div>
+  <div class="skill-btn word"><i class="fa-solid fa-file-word"></i></div>
+  <div class="skill-btn excel"><i class="fa-solid fa-file-excel"></i></div>
+  <div class="skill-btn powerpoint"><i class="fa fa-file-powerpoint"></i></div>
+  <div class="skill-btn paint"><i class="fa fa-paintbrush"></i></div>
+  <div class="skill-btn paint3d"><i class="fa fa-cubes"></i></div>
+  <div class="skill-btn mech"><i class="fa fa-gears"></i></div>
+  <div class="skill-btn mech"><i class="fa fa-bug" aria-hidden="true"></i>
+  </div>
+  
+
+  
+
   <nav class="navbar navbar-expand-lg">
+
     <div class="container-fluid">
+      
       <a class="navbar-brand" href="index.html">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,6 +127,46 @@
     </div>
   </div>
 
+  <script>
+    const buttons = document.querySelectorAll('.skill-btn');
+  
+    // Random placement
+    buttons.forEach(btn => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      btn.style.left = `${x}px`;
+      btn.style.top = `${y}px`;
+    });
+  
+    // Make draggable
+    buttons.forEach(btn => {
+      btn.addEventListener('mousedown', function(e) {
+        let shiftX = e.clientX - btn.getBoundingClientRect().left;
+        let shiftY = e.clientY - btn.getBoundingClientRect().top;
+  
+        function moveAt(pageX, pageY) {
+          btn.style.left = pageX - shiftX + 'px';
+          btn.style.top = pageY - shiftY + 'px';
+        }
+  
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
+  
+        document.addEventListener('mousemove', onMouseMove);
+  
+        btn.onmouseup = function() {
+          document.removeEventListener('mousemove', onMouseMove);
+          btn.onmouseup = null;
+        };
+      });
+  
+      btn.ondragstart = () => false; // prevent default drag ghost
+    });
+  </script>
+  
+
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>

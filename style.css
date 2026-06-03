@@ -65,6 +65,71 @@ h2 {
   line-height: 1.1;
 }
 
+/* Brand colors */
+.react i {
+  color: #61DBFB !important;
+}
+
+.flutter i {
+  color: #02569B !important;
+}
+
+.dart i {
+  color: #0175C2;
+}
+
+.html i {
+  color: #E34F26;
+}
+
+.css i {
+  color: #1572B6;
+}
+
+.js i {
+  color: #F7DF1E;
+}
+
+.laravel i {
+  color: #FF2D20;
+}
+
+.livewire i {
+  color: #4E5D94;
+}
+
+.github i {
+  color: #181717;
+}
+
+.solidworks i {
+  color: #E60012;
+}
+
+.word i {
+  color: #2B579A;
+}
+
+.excel i {
+  color: #217346;
+}
+
+.powerpoint i {
+  color: #B7472A;
+}
+
+.paint i {
+  color: #00A4EF;
+}
+
+.paint3d i {
+  color: #0078D7;
+}
+
+.mech i {
+  color: #6C757D;
+}
+
 .circle {
   position: absolute;
   border-radius: 50%;
@@ -149,19 +214,23 @@ nav .actions {
 .hero-img {
   position: absolute;
   overflow: visible;
-  position: absolute ;
-  width: 100vw; height: 100vh; top: 10%; left: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 10%;
+  left: 0;
   z-index: -2;
-  animation: re_arrange_small 3000ms 500ms forwards ;
+  animation: re_arrange_small 3000ms 500ms forwards;
 }
 
-.home .spotlight .home-text{
+.home .spotlight .home-text {
   position: absolute;
   top: 40%;
   padding: 2rem;
   animation: home_text_reveal 400ms 3000ms forwards;
 
 }
+
 .hero-img::before {
   content: "";
   position: absolute;
@@ -254,8 +323,8 @@ body.home {
   -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
-  animation: typing 3.5s steps(30) forwards ,
-  blink 0.75s step-end infinite;
+  animation: typing 3.5s steps(30) forwards,
+    blink 0.75s step-end infinite;
 }
 
 .hero .card,
@@ -325,11 +394,11 @@ li .nav-link.active {
   font-size: 5rem;
 }
 
-.experience-detail .row .col img{
-  width: 5rem ;
+.experience-detail .row .col img {
+  width: 5rem;
 }
 
-.img-icon{
+.img-icon {
   width: 1rem !important;
 }
 
@@ -341,11 +410,53 @@ li .nav-link.active {
 }
 
 
-.dash nav ul, .dash nav .navbar-brand{
+.dash nav ul,
+.dash nav .navbar-brand {
   border: none !important;
   background: unset !important;
   box-shadow: unset !important;
 }
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tab-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.tab-btn.active {
+  background: rgba(255,255,255,0.3);
+}
+
+.spotlight .row:has(.btn-group) {
+  justify-self: center !important;
+}
+.tab-content.active {
+  display: block;
+}
+.tab-content {
+  display: none;
+}
+
+.about-img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;   /* makes it circular */
+  margin: 1rem 0;
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+
 
 @media (min-width: 768px) {
 
@@ -437,6 +548,7 @@ li .nav-link.active {
   .experience-detail .row .col:nth-child(3) {
     width: 60%;
   }
+
   .experience-detail .row {
     width: 80%;
     justify-self: center;
@@ -452,69 +564,83 @@ li .nav-link.active {
   .home .spotlight .home-text {
     padding: 2rem;
     background-color: var(--dusk-2-translucent);
-    top: 10% !important; left: 5% !important;
+    top: 10% !important;
+    left: 5% !important;
     border-radius: 1rem;
-    height: auto; width: 30%;
+    height: auto;
+    width: 30%;
   }
 
   .home .spotlight .home-text * {
     color: var(--base-100) !important;
-    
+
   }
 
   .hero-img {
-  position: relative;
-  overflow: visible;
-  position: absolute ;
-  width: 100vw; height: auto; 
-  animation: re_arrange 3000ms 500ms forwards;
-}
+    position: relative;
+    overflow: visible;
+    position: absolute;
+    width: 100vw;
+    height: auto;
+    animation: re_arrange 3000ms 500ms forwards;
+  }
 }
 
 @keyframes typing {
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }
 }
- @keyframes blink {
-  from, to {
-    border-color: transparent;}
-  50% {
-    border-color: initial;}
-  
- }
 
- @keyframes re_arrange {
-  from{
+@keyframes blink {
+
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: initial;
+  }
+
+}
+
+@keyframes re_arrange {
+  from {
     top: -50%;
     z-index: 10;
     width: 100vw;
-  } to{
+  }
+
+  to {
     z-index: -2;
     width: 40%;
     left: 50%;
   }
- }
+}
 
- @keyframes re_arrange_small {
-  from{
+@keyframes re_arrange_small {
+  from {
     z-index: 20;
   }
-  to{
+
+  to {
     z-index: -2;
   }
- }
+}
 
- @keyframes home_text_reveal {
-  from{
+@keyframes home_text_reveal {
+  from {
     left: -35%;
     opacity: .4;
   }
-  to{
+
+  to {
     left: initial;
     opacity: 1;
   }
- }
+}

@@ -20,3 +20,18 @@ navBarToggleBtn.addEventListener("click", (e) => {
     ? menubarClassName.replace("bi-menu-button-wide-fill", "bi-x-square-fill")
     : menubarClassName.replace("bi-x-square-fill", "bi-menu-button-wide-fill");
 });
+
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // deactivate all
+      tabButtons.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+
+      // activate clicked
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });

@@ -325,8 +325,12 @@ li .nav-link.active {
   font-size: 5rem;
 }
 
-.experience-detail .row .col img {
-  width: 5rem;
+.experience-detail .row .col img{
+  width: 5rem ;
+}
+
+.img-icon{
+  width: 1rem !important;
 }
 
 
@@ -334,6 +338,13 @@ li .nav-link.active {
 .about-hero-card {
   width: 100% !important;
   height: auto !important;
+}
+
+
+.dash nav ul, .dash nav .navbar-brand{
+  border: none !important;
+  background: unset !important;
+  box-shadow: unset !important;
 }
 
 @media (min-width: 768px) {

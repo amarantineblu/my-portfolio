@@ -446,8 +446,8 @@ li .nav-link.active {
 }
 
 .about-img {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
   border-radius: 50%;   /* makes it circular */
   margin: 1rem 0;

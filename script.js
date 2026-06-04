@@ -7,7 +7,9 @@ const navLinks = document.querySelectorAll(" nav ul li a");
 // currentPage === currentNavLink && activeNavLink;
 navLinks.forEach(navLink => { 
   const parent = navLink.parentElement;
-  !currentPage === '/' && navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
+  console.log(currentPage);
+  
+  currentPage !== '/' && navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
 });
 
 let count = 0;

@@ -357,10 +357,13 @@ body.home {
   border-radius: 1rem;
   z-index: 5;
   height: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
 
 .hero .contact-links p,
+.hero .contact-links a,
 .hero .card span,
 .hero .card li,
 .hero .card h2 {
@@ -369,7 +372,7 @@ body.home {
   color: var(--base-100) !important;
 }
 
-.hero .contact-links p i {
+.hero .contact-links p i , .hero .contact-links a i {
   margin-right: 1rem;
   font-weight: 900;
   font-size: 2rem;
@@ -551,6 +554,7 @@ li .nav-link.active {
   .hero .card,
   .hero .contact-links {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
 

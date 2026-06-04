@@ -44,7 +44,9 @@
   <div class="skill-btn flutter"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
     <polygon fill="#40c4ff" points="26,4 6,24 12,30 38,4"></polygon><polygon fill="#40c4ff" points="38,22 27,33 21,27 26,22"></polygon><rect width="8.485" height="8.485" x="16.757" y="28.757" fill="#03a9f4" transform="rotate(-45.001 21 33)"></rect><polygon fill="#01579b" points="38,44 26,44 21,39 27,33"></polygon><polygon fill="#084994" points="21,39 30,36 27,33"></polygon>
     </svg></div>
-  <div class="skill-btn dart"><i class="devicon-dart-plain"></i></div>
+  <div class="skill-btn dart"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+    <path fill="#1565c0" d="M10,12l3,25l-8.019-8.019c-1.189-1.189-1.508-2.996-0.796-4.52L10,12z"></path><path fill="#42a5f5" d="M27.319,6.319C26.474,5.474,25.329,5,24.135,5c-0.745,0-1.479,0.185-2.135,0.538L10,12v20.343 c0,1.061,0.421,2.078,1.172,2.828L13,37h22v-5l7-11L27.319,6.319z"></path><path fill="#1565c0" d="M10,12h21.343c1.061,0,2.078,0.421,2.828,1.172L42,21v16h-7L10,12z"></path><polygon fill="#85cbf8" points="35,37 13,37 19,43 35,43"></polygon>
+    </svg></div>
   <div class="skill-btn html"><i class="devicon-html5-plain"></i></div>
   <div class="skill-btn css"><i class="devicon-css3-plain"></i></div>
   <div class="skill-btn js"><i class="devicon-javascript-plain"></i></div>
@@ -72,7 +74,7 @@
   
 
   <div id="autoAlert" class="alert bg-warning">
-    You Can Drag Icons
+    Please Drag Icons a little and paste wherever on the screen
     <i class="bi bi-x btn btn-sm btn-outline-dark "></i>
   </div>
 
@@ -139,7 +141,7 @@
   </div>
 
   <script>
-   const buttons = document.querySelectorAll('.skill-btn');
+  const buttons = document.querySelectorAll('.skill-btn');
 
 // Random placement
 buttons.forEach(btn => {
@@ -154,33 +156,29 @@ buttons.forEach(btn => {
   btn.addEventListener('pointerdown', function(e) {
     e.preventDefault();
 
+    // Capture this pointer so only this button moves
+    btn.setPointerCapture(e.pointerId);
+
     let shiftX = e.clientX - btn.getBoundingClientRect().left;
     let shiftY = e.clientY - btn.getBoundingClientRect().top;
 
-    function moveAt(pageX, pageY) {
-      btn.style.left = pageX - shiftX + 'px';
-      btn.style.top = pageY - shiftY + 'px';
-    }
-
     function onPointerMove(e) {
-      moveAt(e.pageX, e.pageY);
+      btn.style.left = e.pageX - shiftX + 'px';
+      btn.style.top = e.pageY - shiftY + 'px';
     }
 
-    // Attach move listener only for this button
-    document.addEventListener('pointermove', onPointerMove);
-
-    function stopDrag() {
-      document.removeEventListener('pointermove', onPointerMove);
-      document.removeEventListener('pointerup', stopDrag);
+    function onPointerUp(e) {
+      btn.removeEventListener('pointermove', onPointerMove);
+      btn.removeEventListener('pointerup', onPointerUp);
     }
 
-    document.addEventListener('pointerup', stopDrag);
+    btn.addEventListener('pointermove', onPointerMove);
+    btn.addEventListener('pointerup', onPointerUp);
   });
 
   btn.ondragstart = () => false;
 });
 
-  
 setTimeout(() => {
     const alert = document.getElementById('autoAlert');
     if (alert) {

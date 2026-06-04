@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/all.min.css" />
 
   <style>
     .skill-btn {
@@ -72,7 +71,7 @@
   </div>
   
 
-  <div class="alert bg-warning">
+  <div id="autoAlert" class="alert bg-warning">
     You Can Drag Icons
     <i class="bi bi-x btn btn-sm btn-outline-dark "></i>
   </div>
@@ -182,7 +181,14 @@ buttons.forEach(btn => {
 });
 
   
-    // Make draggable
+setTimeout(() => {
+    const alert = document.getElementById('autoAlert');
+    if (alert) {
+      // Use Bootstrap's built-in dismiss animation
+      alert.classList.remove('show');
+      alert.classList.add('fade');
+    }
+  }, 2000); // Make draggable
     
  </script>
   

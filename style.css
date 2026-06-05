@@ -1,10 +1,4 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  color: black !important;
-  font-family: "Poppins" !important;
-}
+
 
 @font-face {
   font-family: "Poppins";
@@ -20,9 +14,16 @@
 
 @font-face {
   font-family: "SUSE";
-  src: url("assets/fonts/SUSE/static/SUSE-ExtraBold.ttf");
+  src: url("assets/fonts/SUSE/static/SUSE-Regular.ttf");
 }
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: black !important;
+  font-family: "SUSE" !important;
+}
 :root {
   --base-100: #fafaf0;
   --base-200: #deded5;
@@ -397,7 +398,7 @@ li .nav-link.active {
   } */
 
 
-.experience-detail .row {
+.experience-detail .row, .about-section {
   border-bottom: 3px solid var(--audi-red);
 }
 

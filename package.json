@@ -20,6 +20,8 @@
   "homepage": "https://github.com/amarantineblu/my-portfolio#readme",
   "dependencies": {
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "react-helmet-async": "^3.0.0",
+    "react-router-dom": "^7.17.0"
   }
 }

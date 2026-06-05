@@ -141,10 +141,10 @@
   </div>
 
   <script>
-  const buttons = document.querySelectorAll('.skill-btn');
+  const skillButtons = document.querySelectorAll('.skill-btn');
 
 // Random placement
-buttons.forEach(btn => {
+skillButtons.forEach(btn => {
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 100);
   btn.style.left = `${x}px`;
@@ -152,7 +152,7 @@ buttons.forEach(btn => {
 });
 
 // Make draggable with Pointer Events
-buttons.forEach(btn => {
+skillButtons.forEach(btn => {
   btn.addEventListener('pointerdown', function(e) {
     e.preventDefault();
 
@@ -163,6 +163,7 @@ buttons.forEach(btn => {
     let shiftY = e.clientY - btn.getBoundingClientRect().top;
 
     function onPointerMove(e) {
+      
       btn.style.left = e.pageX - shiftX + 'px';
       btn.style.top = e.pageY - shiftY + 'px';
     }

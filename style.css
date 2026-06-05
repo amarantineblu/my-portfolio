@@ -597,6 +597,20 @@ li .nav-link.active {
     height: auto;
     animation: re_arrange 3000ms 500ms forwards;
   }
+
+  .about .about-section .container{
+    display: flex;
+    align-items: center;
+    padding: 2rem !important;
+  }
+
+  .about .about-section .container h3{
+    padding: 2rem;
+  }
+  .about .about-section .about-img{
+    border-radius: 15px !important;
+    width: 500px !important; height: auto !important;
+  }
 }
 
 @keyframes typing {

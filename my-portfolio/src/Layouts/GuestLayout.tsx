@@ -1,6 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Outlet, Link} from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import {NavLink} from 'react-router-dom'
 export default function GuestLayout(){
+  const location = useLocation();
+
+  useEffect(() => {
+    // clear existing classes
+    document.body.className = '';
+
+    // derive class from pathname
+    const path = location.pathname === '/' ? 'home' : location.pathname.replace('/', '');
+    document.body.classList.add(path);
+  }, [location]);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return(
@@ -20,16 +32,16 @@ export default function GuestLayout(){
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
       <li className="nav-item">
-        <Link className="nav-link " aria-current="page" to="/about">About</Link>
+        <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} aria-current="page" to="/about">About</NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link " aria-current="page" to="/experiences">Portfolio</Link>
+        <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} aria-current="page" to="/experiences">Portfolio</NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/projects">Projects</Link>
+        <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} aria-current="page" to="/projects">Projects</NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/contact">Contact</Link>
+        <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} aria-current="page" to="/contact">Contact</NavLink>
       </li>
     </ul>
   </div>

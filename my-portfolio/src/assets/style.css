@@ -49,6 +49,12 @@ body {
   background: var(--base-200);
 }
 
+main {
+  height: 100vh !important;   /* ensures it fills the viewport */
+  width: 100%;
+}
+
+
 .circle {
   filter: blur(350px);
 }

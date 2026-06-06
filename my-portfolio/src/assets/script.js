@@ -1,4 +1,5 @@
 const menu_bar = document.querySelector("#menu-bar");
+console.log(menu_bar);
 
 
 const currentPage = window.location.pathname;

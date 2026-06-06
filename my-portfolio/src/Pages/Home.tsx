@@ -1,3 +1,4 @@
+declare module '*.jpg';
 import {useEffect} from 'react'
 import myImg from '../assets/images/0394c8857780323dfdcd79d7c946ad72.jpg'
 import Alert from './../components/Alert'

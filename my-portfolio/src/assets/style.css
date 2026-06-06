@@ -195,6 +195,9 @@ nav button {
   /* Adjust value as needed */
 }
 
+.fade:not(.show) {
+  display: none !important;
+}
 nav ul {
   margin: 5px 0;
 }

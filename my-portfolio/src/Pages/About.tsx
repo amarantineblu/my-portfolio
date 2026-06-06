@@ -1,3 +1,4 @@
+import aboutImg from './../assets/images/0394c8857780323dfdcd79d7c946ad72.jpg'
 const About = () => {
   return (
     <div className="about">
@@ -18,7 +19,7 @@ const About = () => {
   </section>
   <section className="about-section">
     <div className="container">
-      <img className="about-img" src="assets/images/0394c8857780323dfdcd79d7c946ad72.jpg" alt=""  />
+      <img className="about-img" src={aboutImg} alt=""  />
       <h3>Hello, I’m Marcus Lebanon Elioma, a developer and designer...</h3>
     </div>
   </section>

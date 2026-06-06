@@ -8,6 +8,7 @@ import Contact from './Pages/Contact'
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 import './assets/style.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ProjectDetail from './Pages/ProjectDetail'
 // import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="experiences" element={<Experiences />} />
           <Route path="projects" element={<Projects />} />
           <Route path="contact" element={<Contact />} />
+          <Route path='project-detail' element={<ProjectDetail/>} />
         </Route>
       </Routes>
     </BrowserRouter>

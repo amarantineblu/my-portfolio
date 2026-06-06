@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+// import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import GuestLayout from './Layouts/GuestLayout'
 import Home from './Pages/Home'
 import About from './Pages/About'
@@ -9,6 +8,7 @@ import Contact from './Pages/Contact'
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 
 import './assets/style.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import './App.css'
 
 function App() {

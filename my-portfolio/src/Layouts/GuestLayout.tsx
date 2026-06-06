@@ -5,7 +5,7 @@ export default function GuestLayout(){
     <nav className="navbar navbar-expand-lg">
 <div className="container-fluid">
   
-  <Link className="navbar-brand" to="/index.html">Home</Link>
+  <Link className="navbar-brand" to="/">Home</Link>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span id="menu-bar" className="bi bi-menu-button-wide-fill"></span>
@@ -13,16 +13,16 @@ export default function GuestLayout(){
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
       <li className="nav-item">
-        <Link className="nav-link " aria-current="page" to="/about.html">About</Link>
+        <Link className="nav-link " aria-current="page" to="/about">About</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link " aria-current="page" to="/experiences.html">Portfolio</Link>
+        <Link className="nav-link " aria-current="page" to="/experiences">Portfolio</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/projects.html">Projects</Link>
+        <Link className="nav-link" to="/projects">Projects</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/contact.html">Contact</Link>
+        <Link className="nav-link" to="/contact">Contact</Link>
       </li>
     </ul>
   </div>

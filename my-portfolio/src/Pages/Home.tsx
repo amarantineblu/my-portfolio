@@ -1,6 +1,10 @@
 import {useEffect} from 'react'
 import myImg from '../assets/images/0394c8857780323dfdcd79d7c946ad72.jpg'
+import Alert from './../components/Alert'
 const Home = () => {
+  const alertMessage = {
+    "message": "Please Drag Icons a little and paste wherever on the screen",
+  };
   useEffect(() => {
     document.body.classList.add('home');
     return () => {
@@ -9,6 +13,7 @@ const Home = () => {
   }, []);
   return (
     <>
+      <Alert message={alertMessage.message} />
        <div className="spotlight">
     <div className="row">
       <div className="col">

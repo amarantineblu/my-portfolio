@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import {Outlet, Link} from 'react-router-dom'
 export default function GuestLayout(){
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return(
     <>
     <nav className="navbar navbar-expand-lg">
@@ -7,8 +10,12 @@ export default function GuestLayout(){
   
   <Link className="navbar-brand" to="/">Home</Link>
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span id="menu-bar" className="bi bi-menu-button-wide-fill"></span>
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    onClick={() => {
+      setMenuOpen(!menuOpen);
+    }}
+    >
+    <span id="menu-bar" className={`bi ${menuOpen ? 'bi-x-square-fill' : 'bi-menu-button-wide-fill'}`}></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0">

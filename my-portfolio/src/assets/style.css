@@ -8,19 +8,19 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("assets/fonts/Poppins/Poppins-Light.ttf");
+  src: url("fonts/Poppins/Poppins-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Danfo";
-  src: url("assets/fonts/Danfo/Danfo-Regular-VariableFont_ELSH.ttf");
+  src: url("fonts/Danfo/Danfo-Regular-VariableFont_ELSH.ttf");
 }
 
 @font-face {
   font-family: "SUSE";
-  src: url("assets/fonts/SUSE/static/SUSE-ExtraBold.ttf");
+  src: url("fonts/SUSE/static/SUSE-ExtraBold.ttf");
 }
 
 :root {

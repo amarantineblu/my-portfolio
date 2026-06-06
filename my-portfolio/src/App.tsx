@@ -6,7 +6,6 @@ import Experiences from './Pages/Experiences'
 import Projects from './Pages/Projects'
 import Contact from './Pages/Contact'
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
-
 import './assets/style.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import './App.css'

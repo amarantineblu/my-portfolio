@@ -6,9 +6,9 @@ const currentPage = window.location.pathname;
 const navLinks = document.querySelectorAll(" nav ul li a");
 // currentPage === currentNavLink && activeNavLink;
 navLinks.forEach(navLink => { 
-  const parent = navLink.parentElement;
-  console.log(currentPage);
-  
+  // @ts-ignore
+  const parent = navLink.parentElement; 
+  // @ts-ignore
   currentPage !== '/' && navLink.href.includes(currentPage) && navLink.classList.add(['active']); 
 });
 
@@ -24,6 +24,7 @@ navLinks.forEach(navLink => {
 
       // activate clicked
       btn.classList.add('active');
+      // @ts-ignore
       document.getElementById(btn.dataset.tab).classList.add('active');
     });
   });

@@ -1,15 +1,16 @@
-declare module '*.jpg';
 import {useEffect} from 'react'
-import myImg from '../assets/images/0394c8857780323dfdcd79d7c946ad72.jpg'
 import Alert from './../components/Alert'
+import myImg from "../assets/images/homeImg.jpg"
 const Home = () => {
   const alertMessage = {
     "message": "Please Drag Icons a little and paste wherever on the screen",
   };
   useEffect(() => {
-    document.body.classList.add('home');
+    if (document?.body) {
+      document.body.classList.add('home');
     return () => {
       document.body.classList.remove('home');
+    }
     }
   }, []);
   return (

@@ -1,5 +1,5 @@
 // @ts-ignore
-import aboutImg from './../assets/images/0394c8857780323dfdcd79d7c946ad72.jpg'
+import aboutImg from '../assets/images/homeImg.jpg'
 const About = () => {
   return (
     <div className="about">
@@ -153,7 +153,6 @@ const About = () => {
 
           </div>
       </section>
-      
     </div>
   )
 };

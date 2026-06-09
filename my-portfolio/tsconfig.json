@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
@@ -10,19 +10,16 @@
     "ignoreDeprecations": "6.0",
     "types": ["jest", "node"],
     "moduleResolution": "node",
-    "allowJs": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": true   // 👈 prevents .js files from being generated
   },
-  "include": [
-    "src",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ],
+  "include": ["src"],
   "exclude": [
     "node_modules",
-    "dist"
-  ],
-  "references": []
+    "dist",
+    "vite.config.ts",
+    "jest.config.ts"
+  ]
 }

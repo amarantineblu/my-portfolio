@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 
@@ -6,7 +6,13 @@ import babel from '@rolldown/plugin-babel'
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] })
   ],
-  
+  test:{
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/Tests/setupTests.ts',
+    alias: {
+      '\\.(png|jpg|jpeg|gif|svg)$': './src/__mocks__/fileMock.ts'
+    }
+  }
 })

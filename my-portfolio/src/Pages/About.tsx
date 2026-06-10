@@ -1,6 +1,11 @@
 // @ts-ignore
-import aboutImg from '../assets/images/homeImg.jpg'
+import aboutImg from '../assets/images/homeImg.jpeg'
+import {useEffect} from 'react'
 const About = () => {
+  const isAboutPage = location.pathname === "/about";
+  useEffect(() => {
+    isAboutPage && (document.title = "About Page - Marcus Lebanon Elioma");
+  },[]);
   return (
     <div className="about">
       <section className="hero">

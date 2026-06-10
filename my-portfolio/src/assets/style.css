@@ -37,7 +37,6 @@
   --dusk-1-translucent: #2b00ff8d;
   --dusk-2-translucent: #ff5cbb92;
 
-
   --toxic-green: #00ff89;
   --metallic-silver: #c0c0c0;
   --alpine-blue: #0090ff;
@@ -50,16 +49,15 @@ body {
 }
 
 main {
-  height: 100vh !important;   /* ensures it fills the viewport */
+  height: 100vh !important; /* ensures it fills the viewport */
   width: 100%;
 }
-
 
 .circle {
   filter: blur(350px);
 }
 
-.alert{
+.alert {
   position: absolute;
   width: auto;
   justify-self: center;
@@ -81,35 +79,35 @@ h2 {
 
 /* Brand colors */
 .react i {
-  color: #61DBFB !important;
+  color: #61dbfb !important;
 }
 
 .flutter i {
-  color: #02569B !important;
+  color: #02569b !important;
 }
 
 .dart i {
-  color: #0175C2;
+  color: #0175c2;
 }
 
 .html i {
-  color: #E34F26;
+  color: #e34f26;
 }
 
 .css i {
-  color: #1572B6;
+  color: #1572b6;
 }
 
 .js i {
-  color: #F7DF1E;
+  color: #f7df1e;
 }
 
 .laravel i {
-  color: #FF2D20;
+  color: #ff2d20;
 }
 
 .livewire i {
-  color: #4E5D94;
+  color: #4e5d94;
 }
 
 .github i {
@@ -117,11 +115,11 @@ h2 {
 }
 
 .solidworks i {
-  color: #E60012;
+  color: #e60012;
 }
 
 .word i {
-  color: #2B579A;
+  color: #2b579a;
 }
 
 .excel i {
@@ -129,19 +127,19 @@ h2 {
 }
 
 .powerpoint i {
-  color: #B7472A;
+  color: #b7472a;
 }
 
 .paint i {
-  color: #00A4EF;
+  color: #00a4ef;
 }
 
 .paint3d i {
-  color: #0078D7;
+  color: #0078d7;
 }
 
 .mech i {
-  color: #6C757D;
+  color: #6c757d;
 }
 
 .circle {
@@ -245,20 +243,17 @@ nav .actions {
   top: 40%;
   padding: 2rem;
   animation: home_text_reveal 400ms 3000ms forwards;
-
 }
 
 .hero-img::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(45deg,
-      /* diagonal stripes */
-      #e63946 0 20px,
-      /* red stripe */
-      transparent 20px 40px
-      /* white stripe */
-    );
+  background: repeating-linear-gradient(
+    45deg,
+    /* diagonal stripes */ #e63946 0 20px,
+    /* red stripe */ transparent 20px 40px /* white stripe */
+  );
   z-index: -1;
   /* behind the image */
   transform: translate(-2%, -2%);
@@ -334,14 +329,15 @@ body.home {
 
 .hero h1,
 .outro h1 {
-  font-family: 'Danfo' !important;
+  font-family: "Danfo" !important;
   font-size: 5rem;
   text-transform: uppercase;
   background-attachment: fixed !important;
   -webkit-text-fill-color: var(--bwt-pink);
   -webkit-text-stroke: black;
   -webkit-text-stroke-width: 1px;
-  animation: typing 3.5s steps(30) forwards,
+  animation:
+    typing 3.5s steps(30) forwards,
     blink 0.75s step-end infinite;
 }
 
@@ -370,7 +366,6 @@ body.home {
   flex-direction: column;
 }
 
-
 .hero .contact-links p,
 .hero .contact-links a,
 .hero .card span,
@@ -381,12 +376,12 @@ body.home {
   color: var(--base-100) !important;
 }
 
-.hero .contact-links p i , .hero .contact-links a i {
+.hero .contact-links p i,
+.hero .contact-links a i {
   margin-right: 1rem;
   font-weight: 900;
   font-size: 2rem;
 }
-
 
 li .nav-link.active {
   background: var(--audi-red) !important;
@@ -394,8 +389,6 @@ li .nav-link.active {
   border: 3px solid var(--bwt-pink);
   padding-left: 10px !important;
 }
-
-
 
 .navbar-toggler {
   background: transparent;
@@ -405,8 +398,8 @@ li .nav-link.active {
     background: var(--audi-red) !important;
   } */
 
-
-.experience-detail .row, .about-section {
+.experience-detail .row,
+.about-section {
   border-bottom: 3px solid var(--audi-red);
 }
 
@@ -423,13 +416,10 @@ li .nav-link.active {
   width: 1rem !important;
 }
 
-
-
 .about-hero-card {
   width: 100% !important;
   height: auto !important;
 }
-
 
 .dash nav ul,
 .dash nav .navbar-brand {
@@ -446,14 +436,14 @@ li .nav-link.active {
 .tab-btn {
   padding: 0.5rem 1rem;
   border: none;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
 }
 .tab-btn.active {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .spotlight .row:has(.btn-group) {
@@ -470,17 +460,13 @@ li .nav-link.active {
   width: 300px;
   height: 300px;
   object-fit: cover;
-  border-radius: 50%;   /* makes it circular */
+  border-radius: 50%; /* makes it circular */
   margin: 1rem 0;
-  border: 3px solid rgba(255,255,255,0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
 }
 
-
-
-
 @media (min-width: 768px) {
-
   h1,
   h2 {
     letter-spacing: 0;
@@ -595,7 +581,6 @@ li .nav-link.active {
 
   .home .spotlight .home-text * {
     color: var(--base-100) !important;
-
   }
 
   .hero-img {
@@ -607,18 +592,19 @@ li .nav-link.active {
     animation: re_arrange 3000ms 500ms forwards;
   }
 
-  .about .about-section .container{
+  .about .about-section .container {
     display: flex;
     align-items: center;
     padding: 2rem !important;
   }
 
-  .about .about-section .container h3{
+  .about .about-section .container h3 {
     padding: 2rem;
   }
-  .about .about-section .about-img{
+  .about .about-section .about-img {
     border-radius: 15px !important;
-    width: 500px !important; height: auto !important;
+    width: 500px !important;
+    height: auto !important;
   }
 }
 
@@ -633,7 +619,6 @@ li .nav-link.active {
 }
 
 @keyframes blink {
-
   from,
   to {
     border-color: transparent;
@@ -642,7 +627,6 @@ li .nav-link.active {
   50% {
     border-color: initial;
   }
-
 }
 
 @keyframes re_arrange {
@@ -672,11 +656,33 @@ li .nav-link.active {
 @keyframes home_text_reveal {
   from {
     left: -35%;
-    opacity: .4;
+    opacity: 0.4;
   }
 
   to {
     left: initial;
     opacity: 1;
   }
+}
+
+/* Skill button styling (copied from original index.html and adapted) */
+.skill-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  background: rgba(225, 106, 9, 0.425);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 2rem;
+  cursor: grab;
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.skill-btn:hover {
+  transform: scale(1.2);
 }

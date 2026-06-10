@@ -634,12 +634,16 @@ li .nav-link.active {
     top: -50%;
     z-index: 10;
     width: 100vw;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
   }
 
   to {
     z-index: -2;
     width: 40%;
     left: 50%;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0); /* Safari support */
   }
 }
 

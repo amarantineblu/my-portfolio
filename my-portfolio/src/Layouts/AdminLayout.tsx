@@ -17,19 +17,24 @@ export default function AdminLayout() {
     <>
       
       <style>{`
+        @font-face {
+          font-family: "SUSE";
+          src: url("./assets/fonts/SUSE/SUSE-VariableFont_wght.ttf") format("truetype");
+        }
         body {
-          font-family: Arial, sans-serif;
+          font-family: "SUSE" !important;
         }
         #sidebar {
           min-height: 100vh;
           background-color: #343a40;
           transition: all 0.3s;
+          width: auto;
         }
         #sidebar .nav-link {
-          color: #fff;
+          color: #fff !important;
         }
         #sidebar .nav-link.active {
-          background-color: #495057;
+          background-color: #495057 !important;
         }
         #sidebar.collapsed {
           margin-left: -250px;
@@ -41,6 +46,17 @@ export default function AdminLayout() {
         #content.expanded {
           margin-left: 0;
         }
+        .glass-card {
+          background: rgba(255, 255, 255, 0.15); /* translucent */
+          border-radius: 16px;
+          backdrop-filter: blur(10px); /* frosted glass effect */
+          -webkit-backdrop-filter: blur(10px); /* Safari support */
+          border: 1px solid rgba(255, 255, 255, 0.3); /* subtle border */
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* soft shadow */
+          padding: 20px;
+          color: #fff; /* text stands out on translucent bg */
+        }
+        
       `}</style>
       <AdminNavBar />
 

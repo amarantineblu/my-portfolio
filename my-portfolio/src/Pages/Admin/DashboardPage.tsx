@@ -4,7 +4,7 @@ const DashboardPage = () => {
     <h1 className="mb-4">Dashboard Overview</h1>
 
       
-<div className="card text-bg-info mb-4">
+<div className="card glass-card text-bg-info mb-4">
   <div className="card-body">
     <h5 className="card-title"><i className="fas fa-users"></i> Visitors</h5>
     <p className="card-text fs-3">2,345</p>

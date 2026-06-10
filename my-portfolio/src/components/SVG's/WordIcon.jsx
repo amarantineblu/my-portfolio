@@ -23,8 +23,8 @@ export default function WordIcon(props) {
         gradientTransform="translate(0 -339.89)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#66c0ff"></stop>
-        <stop offset=".26" stop-color="#0094f0"></stop>
+        <stop offset="0" stopColor="#66c0ff"></stop>
+        <stop offset=".26" stopColor="#0094f0"></stop>
       </linearGradient>
       <path
         fill="url(#qh2LT5tehRDFkLLfb-odWa_EqxMzyq5jqdz_gr1)"
@@ -32,7 +32,7 @@ export default function WordIcon(props) {
       ></path>
       <path
         fill="#1e88e5"
-        fill-opacity=".6"
+        fillOpacity=".6"
         d="M9,20.208c0-2.624,2.126-4.75,4.749-4.75h21.857L41,12.778v13.527	C41,28.346,39.346,30,37.306,30H15.332C11.835,30,9,32.836,9,36.333L9,20.208L9,20.208z"
       ></path>
       <path

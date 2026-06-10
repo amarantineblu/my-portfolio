@@ -1,4 +1,9 @@
+import React, { useEffect } from "react";
 const Projects   = () => {
+  useEffect(() => {
+    const isProjectsPage = location.pathname === "/projects";
+    isProjectsPage && (document.title = "Projects Page - Marcus Lebanon Elioma");
+  }, []);
   return (
     <>
     <section className="hero">

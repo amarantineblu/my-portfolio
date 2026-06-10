@@ -9,11 +9,20 @@ const Home = () => {
   useEffect(() => {
     if (document?.body) {
       document.body.classList.add("home");
-      return () => {
-        document.body.classList.remove("home");
-      };
     }
+  
+    const isHomePage = location.pathname === "/";
+    if (isHomePage) {
+      document.title = "Personal Portfolio Website - Marcus Lebanon Elioma";
+    }
+  
+    return () => {
+      if (document?.body) {
+        document.body.classList.remove("home");
+      }
+    };
   }, []);
+  
 
   // Replicate index.html behavior: random placement and draggable skill buttons
   useEffect(() => {

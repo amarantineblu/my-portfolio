@@ -13,7 +13,8 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "noEmit": true   // 👈 prevents .js files from being generated
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true   // 👈 prevents .js files from being generated
   },
   "include": ["src"],
   "exclude": [

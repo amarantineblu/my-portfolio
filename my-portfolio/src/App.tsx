@@ -1,5 +1,6 @@
 // import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import GuestLayout from "./Layouts/GuestLayout";
+import AdminLayout from "./Layouts/AdminLayout";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Experiences from "./Pages/Experiences";
@@ -10,6 +11,8 @@ import Contact from "./Pages/Contact";
 import "./assets/style.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
+import DashboardPage from "./Pages/Admin/DashboardPage";
+import { DatabaseSync } from "node:sqlite";
 // import './App.css'
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
           <Route path="projects" element={<Projects />} />
           <Route path="contact" element={<Contact />} />
           <Route path="project-detail" element={<ProjectDetail />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<DashboardPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

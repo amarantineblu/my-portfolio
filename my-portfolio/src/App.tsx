@@ -6,6 +6,10 @@ import About from "./Pages/About";
 import Experiences from "./Pages/Experiences";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register"
+
+import ProtectedRoute from "./Components/ProtectedRoute";
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 // @ts-ignore
 import "./assets/style.css";
@@ -26,9 +30,15 @@ function App() {
           <Route path="projects" element={<Projects />} />
           <Route path="contact" element={<Contact />} />
           <Route path="project-detail" element={<ProjectDetail />} />
+          <Route path="project-detail/:id" element={<ProjectDetail />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<DashboardPage />} />
+          <Route index element={<ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

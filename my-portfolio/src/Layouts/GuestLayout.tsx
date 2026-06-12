@@ -95,8 +95,9 @@ export default function GuestLayout() {
             </ul>
           </div>
         </div>
-        <div className="actions">
-          <button className="btn btn-sm">Get A Quote</button>
+        <div className="btn-group">
+          <button className="btn btn-sm"> <i className="bi bi-person-lock"></i></button>
+          <button className="btn btn-sm"> <i className="bi bi-brightness-high"></i>  </button>
         </div>
       </nav>
 

@@ -4,7 +4,11 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -17,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/amarantineblu/my-portfolio/issues"
   },
-  "homepage": "https://github.com/amarantineblu/my-portfolio#readme",
+  "homepage": "https://amarantineblu.github.io/my-portfolio",
   "dependencies": {
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -29,6 +33,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
+    "gh-pages": "^6.3.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-transform-stub": "^2.0.0",

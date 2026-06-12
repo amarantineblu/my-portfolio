@@ -16,6 +16,7 @@ import "./assets/style.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
+import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
 import { DatabaseSync } from "node:sqlite";
 // import './App.css'
 
@@ -36,9 +37,9 @@ function App() {
 
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<ProtectedRoute>
-        <DashboardPage />
-      </ProtectedRoute>} />
+          <Route index element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="projects" element={<ProtectedRoute><ProjectsAdminPage /></ProtectedRoute>} />
+
         </Route>
       </Routes>
     </BrowserRouter>

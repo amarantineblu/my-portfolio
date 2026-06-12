@@ -1,4 +1,75 @@
+import Form, {FormField} from './../../Components/Form';
 const ProjectsAdminPage: React.FC = () => {
+const fields: FormField[] = [
+  {
+    name: 'Project Category',
+    label: 'Project Category',
+    type: "select",
+    options: [
+      { value: 'web-development', label: 'Web Development' },
+      { value: 'mobile-development', label: 'Mobile Development' },
+      { value: 'design', label: 'Design' }
+    ],
+    required: true
+  },
+  {
+    name: 'Project Name',
+    label: 'Project Name',
+    type: "text",
+      placeholder: "Enter Full Name",
+      required: true,
+  },
+  {
+    name: 'Project Languages',
+    label: 'Project Languages',
+    type: "text",
+      placeholder: "Enter Project Languages",
+      required: true,
+  },
+  {
+    name: 'Project Status',
+    label: 'Project Status',
+    type: "select",
+    options: [
+      { value: 'completed', label: 'Completed' },
+      { value: 'in-progress', label: 'In Progress' },
+      { value: 'on-hold', label: 'On Hold' }
+    ],
+    required: true
+  }, 
+  {
+    name: 'Project Link',
+    label: 'Project Link',
+    type: "text",
+      placeholder: "Enter Project Link",
+      required: false,
+  }, {
+    name: 'Project Images or Videos',
+    label: 'Project Image or Video',
+    type: "file",
+      placeholder: "Enter Project Image or Video URL",
+      required: true,
+  }, {
+    name: 'Project Tags',
+    label: 'Project Tags',
+    type: "text",
+      placeholder: "Enter Project Tags (comma separated)",
+      required: false,
+  },
+  
+  {
+    name: 'Project Description',
+    label: 'Project Description',
+    type: "textarea",
+      placeholder: "Enter Project Description",
+      required: true,
+  }
+];
+
+const handleSubmit = (values: Record<string, string>) => {
+  console.log("Project submitted:", values);
+  // Here you would typically send the data to your backend API
+};
   return (
     <div className="container mt-5">  
       <h1 className="mb-4">Projects Management</h1>
@@ -7,25 +78,7 @@ const ProjectsAdminPage: React.FC = () => {
           <i className="fas fa-plus"></i> Add New Project
         </div>
         <div className="card-body"> 
-          <form>
-            <div className="mb-3">
-              <label htmlFor="projectName" className="form-label">Project Name</label>  
-              <input type="text" className="form-control" id="projectName" placeholder="Enter project name" />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="projectDescription" className="form-label">Description</label>
-              <textarea className="form-control" id="projectDescription" rows={3} placeholder="Enter project description"></textarea>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="projectStatus" className="form-label">Status</label>
-              <select className="form-select" id="projectStatus">
-                <option value="completed">Completed</option>
-                <option value="in-progress">In Progress</option>
-                <option value="testing">Testing</option>
-              </select>
-            </div>
-            <button type="submit" className="btn btn-primary">Add Project</button>
-          </form>
+          <Form fields={fields} onSubmit={handleSubmit} submitLabel='' />
         </div>
       </div>
       <div className="card">

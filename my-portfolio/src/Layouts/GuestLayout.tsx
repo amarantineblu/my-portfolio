@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link, useLocation, NavLink } from "react-router-dom";
-import SkillButtonsContainer from "../Components/SkillButtonsContainer";
+import SkillButtonsContainer from "../components/SkillButtonsContainer";
 
 export default function GuestLayout() {
   const location = useLocation();
@@ -44,9 +44,7 @@ export default function GuestLayout() {
             <span
               id="menu-bar"
               className={`bi ${
-                menuOpen
-                  ? "bi-x-square-fill"
-                  : "bi-menu-button-wide-fill"
+                menuOpen ? "bi-x-square-fill" : "bi-menu-button-wide-fill"
               }`}
             ></span>
           </button>
@@ -96,8 +94,14 @@ export default function GuestLayout() {
           </div>
         </div>
         <div className="btn-group">
-          <button className="btn btn-sm"> <i className="bi bi-person-lock"></i></button>
-          <button className="btn btn-sm"> <i className="bi bi-brightness-high"></i>  </button>
+          <button className="btn btn-sm">
+            {" "}
+            <i className="bi bi-person-lock"></i>
+          </button>
+          <button className="btn btn-sm">
+            {" "}
+            <i className="bi bi-brightness-high"></i>{" "}
+          </button>
         </div>
       </nav>
 

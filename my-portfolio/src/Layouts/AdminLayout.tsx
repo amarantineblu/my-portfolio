@@ -1,7 +1,7 @@
-import {NavLink, Link, Location, Outlet } from "react-router-dom";
+import { NavLink, Link, Location, Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import AdminNavBar from "../Components/Admin/AdminNavBar";
-import AdminSideBar from "../Components/Admin/AdminSideBar";
+import AdminNavBar from "../components/Admin/AdminNavBar";
+import AdminSideBar from "../components/Admin/AdminSideBar";
 import { Helmet } from "react-helmet-async";
 export default function AdminLayout() {
   useEffect(() => {
@@ -15,7 +15,6 @@ export default function AdminLayout() {
   });
   return (
     <>
-      
       <style>{`
       @font-face {
         font-family: "SUSE";

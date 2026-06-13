@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Alert from "../Components/Alert";
+import Alert from "../components/Alert";
 import myImg from "../assets/images/aboutImg.JPG.jpeg";
-import SkillButton from "../Components/SkillBtn";
+import SkillButton from "../components/SkillBtn";
 const Home = () => {
   const alertMessage = {
     message: "Please Drag Icons a little and paste wherever on the screen",
@@ -10,19 +10,18 @@ const Home = () => {
     if (document?.body) {
       document.body.classList.add("home");
     }
-  
+
     const isHomePage = location.pathname === "/";
     if (isHomePage) {
       document.title = "Personal Portfolio Website - Marcus Lebanon Elioma";
     }
-  
+
     return () => {
       if (document?.body) {
         document.body.classList.remove("home");
       }
     };
   }, []);
-  
 
   // Replicate index.html behavior: random placement and draggable skill buttons
   useEffect(() => {

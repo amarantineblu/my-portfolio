@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form, { FormField } from "../Components/Form";
+import Form, { FormField } from "../components/Form";
 import { useNavigate } from "react-router-dom";
 
 import {

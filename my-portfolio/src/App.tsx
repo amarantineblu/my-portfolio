@@ -7,9 +7,9 @@ import Experiences from "./Pages/Experiences";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
-import Register from "./Pages/Register"
+import Register from "./Pages/Register";
 
-import ProtectedRoute from "./Components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 // @ts-ignore
 import "./assets/style.css";
@@ -34,12 +34,24 @@ function App() {
           <Route path="project-detail/:id" element={<ProjectDetail />} />
           <Route path="login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-          <Route path="projects" element={<ProtectedRoute><ProjectsAdminPage /></ProtectedRoute>} />
-
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <ProtectedRoute>
+                <ProjectsAdminPage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

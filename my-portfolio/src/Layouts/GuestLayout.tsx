@@ -93,8 +93,8 @@ export default function GuestLayout() {
             </ul>
           </div>
         </div>
-        <div className="btn-group">
-          <button className="btn btn-sm">
+        <div className="btn-group p-2">
+          <button className="btn btn-sm" >
             {" "}
             <i className="bi bi-person-lock"></i>
           </button>

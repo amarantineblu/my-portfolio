@@ -25,8 +25,7 @@ const AdminNavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div className="container-fluid">
-      <button className="btn btn-outline-light me-2" id="toggleSidebar">
-        <img className="img-icon" width="50" height="50" src="https://img.icons8.com/ios/50/xbox-menu.png" alt="xbox-menu"/>      </button>
+      
       <a className="navbar-brand" href="#">My Dashboard</a>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ms-auto">
@@ -36,6 +35,9 @@ const AdminNavBar = () => {
         </ul>
       </div>
     </div>
+    <button className="btn btn-outline-light me-2" id="toggleSidebar">
+        <img className="img-icon" width="50" height="50" src="https://img.icons8.com/ios/50/xbox-menu.png" alt="xbox-menu"/>      
+        </button>
   </nav>
   )
 }

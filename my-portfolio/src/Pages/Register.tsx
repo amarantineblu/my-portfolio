@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form, { FormField } from "../components/Form";
+import Alert from "../components/Alert";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -12,16 +13,23 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleRegister = async (values: Record<string, string>) => {
     try {
       const { email, password } = values;
       console.log("Registering user:", values);
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("User registered successfully!");
+      const msg = "User registered successfully!";
+      // visible in-page alert (use shared Alert component)
+      setAlertMessage(msg);
+      // keep window.alert for backwards compatibility and tests
+      alert(msg);
       navigate("/admin");
     } catch (err) {
-      alert("Registration failed");
+      const msg = "Registration failed";
+      setAlertMessage(msg);
+      alert(msg);
     }
   };
 
@@ -72,7 +80,10 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Form fields={fields} onSubmit={handleSubmit} submitLabel="Register" />
+    <>
+      {alertMessage && <Alert message={alertMessage} />}
+      <Form fields={fields} onSubmit={handleSubmit} submitLabel="Register" />
+    </>
   );
 };
 

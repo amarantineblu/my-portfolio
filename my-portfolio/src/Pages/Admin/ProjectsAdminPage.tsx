@@ -80,7 +80,7 @@ const ProjectsAdminPage: React.FC = () => {
           <i className="fas fa-plus"></i> Add New Project
         </div>
         <div className="card-body">
-          <Form fields={fields} onSubmit={handleSubmit} submitLabel="" />
+          <Form fields={fields} onSubmit={handleSubmit} submitLabel="Add New Project" />
         </div>
       </div>
       <div className="card">
@@ -88,6 +88,7 @@ const ProjectsAdminPage: React.FC = () => {
           <i className="fas fa-folder"></i> Existing Projects
         </div>
         <div className="card-body">
+          <div className="table-responsive">
           <table className="table table-striped">
             <thead>
               <tr>
@@ -130,6 +131,7 @@ const ProjectsAdminPage: React.FC = () => {
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

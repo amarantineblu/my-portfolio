@@ -31,70 +31,59 @@ export default function AdminLayout() {
       }
       
       /* Sidebar */
-      #sidebar {
-        min-height: 100vh;
-        background: linear-gradient(180deg, #212529, #343a40);
-        transition: width 0.3s ease;
-        width: 250px;
-        overflow: hidden;
-      }
-      
-      #sidebar .nav-link {
-        color: #adb5bd;
-        padding: 12px 20px;
-        display: block;
-        transition: background 0.2s, color 0.2s;
-      }
-      
-      #sidebar .nav-link:hover {
-        background-color: #495057;
+      /* Sidebar base */
+      #sidebar, .navbar {
+        background-color: #0d6efd !important; /* Bootstrap dark */
         color: #fff;
       }
       
-      #sidebar .nav-link.active {
-        background-color: #0d6efd;
-        color: #fff !important;
-        border-radius: 6px;
+      #sidebar {
+        max-width: 250px;
+        transition: all 0.3s;
+        min-height: 100vh;
+
+      }
+      /* Nav links */
+      #sidebar .nav-link {
+        display: flex;
+        align-items: center;
+        color: #adb5bd;
+        padding: 0.75rem 1rem;
+        transition: all 0.2s ease;
       }
       
-      /* Collapsed sidebar */
-      #sidebar.collapsed {
-        width: 70px;
+      #sidebar .nav-link:hover {
+        color: #fff;
+        background-color: #343a40;
       }
       
-      #content {
-        padding: 20px;
-        transition: margin-left 0.3s ease;
-        margin-left: 250px;
+      /* Icons */
+      .sidebar-icon {
+        font-size: 1.2rem;
+        flex-shrink: 0;
       }
       
-      #content.expanded {
-        margin-left: 70px;
+      /* Text labels */
+      .sidebar-text {
+        margin-left: 0.5rem;
+        white-space: nowrap;
       }
       
-      /* Glass card */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        padding: 24px;
-        color: #212529;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Collapsed state: hide text */
+      #sidebar.collapsed .sidebar-text {
+        display: none;
       }
       
-      .glass-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      /* Expanded state: show text */
+      #sidebar:not(.collapsed) .sidebar-text {
+        display: inline;
       }
       
       `}</style>
       <AdminNavBar />
 
       <div className="d-flex">
-        <AdminSideBar />
+        <AdminSideBar collapsed={false} />
         <main className="flex-grow-1" id="content">
           <Outlet />
         </main>

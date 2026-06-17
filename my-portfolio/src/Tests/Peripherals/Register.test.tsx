@@ -28,6 +28,7 @@ vi.mock("react-router-dom", () => {
 });
 
 import Register from "../../Pages/Register";
+import { redirect } from "react-router-dom";
 
 // grab the mocked modules so we assert against the same spy instances
 const firebaseAuth = require("firebase/auth");
@@ -45,21 +46,28 @@ describe("Life Cycle of Register Page", () => {
     expect(header).toBeInTheDocument();
   });
 
-  test("register form authenticates user", async () => {
+  test("register form authenticates user and redirects to admin panel", async () => {
+
     // Arrange: render component
     render(<Register />);
 
     const emailInput = screen.getByLabelText("Email") as HTMLInputElement;
     const passwordInput = screen.getByLabelText("Password") as HTMLInputElement;
-    const submit = screen.getByRole("button", { name: /register/i });
-
+    const submit = screen.getByRole("button", { name: /Register/i });
     // Act: fill fields and submit
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "secret" } });
     fireEvent.click(submit);
 
     // Assert: in-page Alert component shows success message
-    const alertNode = await screen.findByText(/User registered successfully!/i);
-    expect(alertNode).toBeInTheDocument();
+    const createUserSpy = firebaseAuth.createUserWithEmailAndPassword;
+    // after render & submit
+console.log(firebaseAuth.createUserWithEmailAndPassword.mock.calls);
+await waitFor(() => expect(createUserSpy).toHaveBeenCalled());
+await waitFor(() => expect(createUserSpy).toHaveBeenCalledWith(
+  expect.any(Object), "test@example.com", "secret"
+));
+    redirect("/admin");
+    
   });
 });

@@ -35,18 +35,36 @@ export default function AdminLayout() {
       #sidebar, .navbar {
         background-color: #0d6efd !important; /* Bootstrap dark */
         color: #fff;
+        position: fixed !important;
       }
       
+      .container{
+      position: relative;
+      top: 50px !important;
+      }
+
+      .navbar{
+        width: 100%;
+        height: 56px;
+        border-radius: 50px;
+        z-index: 1030; /* above sidebar */
+      }
       #sidebar {
-        max-width: 250px;
+        max-width: 20vw;
         transition: all 0.3s;
         min-height: 100vh;
-
+      
       }
+
+      #sidebar ul{
+        list-style: none;
+        margin: 8rem 0;}
       /* Nav links */
       #sidebar .nav-link {
+        
         display: flex;
         align-items: center;
+        margin: 0.5rem 0;
         color: #adb5bd;
         padding: 0.75rem 1rem;
         transition: all 0.2s ease;
@@ -68,7 +86,10 @@ export default function AdminLayout() {
         margin-left: 0.5rem;
         white-space: nowrap;
       }
-      
+
+      #sidebar.collapsed {
+        max-width: 80px;
+      }
       /* Collapsed state: hide text */
       #sidebar.collapsed .sidebar-text {
         display: none;
@@ -78,7 +99,20 @@ export default function AdminLayout() {
       #sidebar:not(.collapsed) .sidebar-text {
         display: inline;
       }
-      
+
+      @media (max-width: 500px) {
+        #sidebar.collapsed {
+          position: fixed;
+          top: 56px; /* below navbar */
+          left: -200px;
+        }
+        #sidebar .sidebar-text {
+          display: none !important;
+        }
+        #sidebar{
+        width: auto !important;
+        }
+      }
       `}</style>
       <AdminNavBar />
 

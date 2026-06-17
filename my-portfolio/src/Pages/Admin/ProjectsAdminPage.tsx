@@ -1,8 +1,21 @@
 import Form, { FormField } from "../../components/Form";
+import { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./../../firebase";
 const ProjectsAdminPage: React.FC = () => {
+  const [tags, setTags] = useState<string[]>([]);
+  const [inputValue, setInputValue] =  useState('');
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter' && inputValue.trim() !== ''){
+      e.preventDefault();
+      setTags([...tags, inputValue.trim()]);
+      setInputValue("");
+    }
+  }
   const fields: FormField[] = [
     {
-      name: "Project Category",
+      name: "projectCategory",
       label: "Project Category",
       type: "select",
       options: [
@@ -13,21 +26,21 @@ const ProjectsAdminPage: React.FC = () => {
       required: true,
     },
     {
-      name: "Project Name",
+      name: "projectName",
       label: "Project Name",
       type: "text",
       placeholder: "Enter Full Name",
       required: true,
     },
     {
-      name: "Project Languages",
+      name: "projectLanguages",
       label: "Project Languages",
       type: "text",
       placeholder: "Enter Project Languages",
       required: true,
     },
     {
-      name: "Project Status",
+      name: "projectStatus",
       label: "Project Status",
       type: "select",
       options: [
@@ -38,29 +51,29 @@ const ProjectsAdminPage: React.FC = () => {
       required: true,
     },
     {
-      name: "Project Link",
+      name: "projectLink",
       label: "Project Link",
       type: "text",
       placeholder: "Enter Project Link",
       required: false,
     },
     {
-      name: "Project Images or Videos",
+      name: "projectMedia",
       label: "Project Image or Video",
       type: "file",
       placeholder: "Enter Project Image or Video URL",
       required: true,
     },
     {
-      name: "Project Tags",
+      name: "projectTags",
       label: "Project Tags",
-      type: "text",
+      type: "textarea",
       placeholder: "Enter Project Tags (comma separated)",
       required: false,
     },
 
     {
-      name: "Project Description",
+      name: "projectDescription",
       label: "Project Description",
       type: "textarea",
       placeholder: "Enter Project Description",
@@ -68,8 +81,18 @@ const ProjectsAdminPage: React.FC = () => {
     },
   ];
 
-  const handleSubmit = (values: Record<string, string>) => {
-    console.log("Project submitted:", values);
+  const handleSubmit = async (values: Record<string, string>) => {
+    try {
+      await addDoc(collection(db, 'projects'), {
+        ...values,
+        projectTags: tags, // use the array from Enter key input
+         createdAt: new Date()
+      })
+      console.log("Project submitted:", values);
+
+    } catch (error) {
+      console.error('Error adding Projects:', error)
+    }
     // Here you would typically send the data to your backend API
   };
   return (

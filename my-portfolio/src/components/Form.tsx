@@ -5,30 +5,42 @@ export interface FormField {
   label: string;
   type: string;
   placeholder?: string;
-  options?: { value: string; label: string }[]; // For select fields
+  options?: { value: string; label: string }[];
   required?: boolean;
 }
 
 interface FormProps {
   fields: FormField[];
-  onSubmit: (values: Record<string, string>) => void;
+  onSubmit: (values: Record<string, any>) => void;
   submitLabel?: string;
 }
 
 const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" }) => {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [values, setValues] = useState<Record<string, any>>({});
+  const [tags, setTags] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const tag = inputValue.trim();
+      if (tag && !tags.includes(tag)) {
+        const newTags = [...tags, tag];
+        setTags(newTags);
+        setInputValue(newTags.join("\n")); // show tags stacked in textarea
+      }
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(values);
+    onSubmit({ ...values, projectTags: tags });
   };
 
   return (
@@ -41,7 +53,17 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                 <label htmlFor={field.name} className="form-label">
                   {field.label}
                 </label>
-                {field.type === "select" ? (
+                {field.name === "projectTags" ? (
+                  <textarea
+                    id={field.name}
+                    name={field.name}
+                    className="form-control"
+                    placeholder="Type a tag and press Enter"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                ) : field.type === "select" ? (
                   <select
                     id={field.name}
                     name={field.name}
@@ -67,11 +89,12 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                     value={values[field.name] || ""}
                     onChange={handleChange}
                   />
-                ) : field.type === "file" ?(
+                ) : field.type === "file" ? (
                   <input
                     type="file"
                     id={field.name}
-                    accept="images/*" multiple
+                    accept="images/*"
+                    multiple
                     name={field.name}
                     className="form-control"
                     required={field.required}

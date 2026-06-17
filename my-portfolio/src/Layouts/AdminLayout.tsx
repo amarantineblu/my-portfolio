@@ -33,7 +33,7 @@ export default function AdminLayout() {
       /* Sidebar */
       /* Sidebar base */
       #sidebar, .navbar {
-        background-color: #0d6efd !important; /* Bootstrap dark */
+        background-color: #0e274c !important; /* Bootstrap dark */
         color: #fff;
         position: fixed !important;
       
@@ -66,6 +66,7 @@ export default function AdminLayout() {
         align-items: center;
         margin: 0.5rem 0;
         color: #adb5bd;
+        border-radius: 5px;
         padding: 0.75rem 1rem;
         transition: all 0.2s ease;
       }
@@ -79,6 +80,7 @@ export default function AdminLayout() {
       .sidebar-icon {
         font-size: 1.2rem;
         flex-shrink: 0;
+        fill: white !important;
       }
       
       /* Text labels */

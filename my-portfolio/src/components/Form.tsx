@@ -26,6 +26,21 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      // Upload each file to Firebase Storage
+      const urls = await Promise.all(
+        files.map(async (file) => {
+          const storageRef = ref(storage, `projects/${file.name}`);
+          await uploadBytes(storageRef, file);
+          return await getDownloadURL(storageRef);
+        })
+      );
+      setValues({ ...values, projectMedia: urls }); // store array of URLs
+    }
+  };
+  
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();

@@ -36,6 +36,7 @@ export default function AdminLayout() {
         background-color: #0d6efd !important; /* Bootstrap dark */
         color: #fff;
         position: fixed !important;
+      
       }
       
       .container{
@@ -50,18 +51,17 @@ export default function AdminLayout() {
         z-index: 1030; /* above sidebar */
       }
       #sidebar {
-        max-width: 20vw;
+        width: auto !important;
         transition: all 0.3s;
         min-height: 100vh;
-      
       }
 
       #sidebar ul{
         list-style: none;
-        margin: 8rem 0;}
+        margin: 8rem 0;
+        }
       /* Nav links */
       #sidebar .nav-link {
-        
         display: flex;
         align-items: center;
         margin: 0.5rem 0;
@@ -88,7 +88,7 @@ export default function AdminLayout() {
       }
 
       #sidebar.collapsed {
-        max-width: 80px;
+        max-width: auto !important;
       }
       /* Collapsed state: hide text */
       #sidebar.collapsed .sidebar-text {

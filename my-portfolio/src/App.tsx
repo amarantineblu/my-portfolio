@@ -12,13 +12,11 @@ import Register from "./Pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 // @ts-ignore
-import "./assets/style.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
 import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
 import { DatabaseSync } from "node:sqlite";
-// import './App.css'
 
 function App() {
   return (

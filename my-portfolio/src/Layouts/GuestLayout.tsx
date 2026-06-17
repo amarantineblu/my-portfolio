@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from "react";
 import { Outlet, Link, useLocation, NavLink } from "react-router-dom";
 import SkillButtonsContainer from "../components/SkillButtonsContainer";
+import "./../assets/style.css";
 
 export default function GuestLayout() {
   const location = useLocation();

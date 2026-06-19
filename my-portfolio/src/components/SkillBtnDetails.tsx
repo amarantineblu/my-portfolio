@@ -14,6 +14,8 @@ import WordIcon from "./SVG's/WordIcon";
 import ExcelIcon from "./SVG's/ExcelIcon";
 // @ts-ignore: Module has no type declarations
 import PowerpointIcon from "./SVG's/PowerpointIcon";
+// @ts-ignore: Module has no type declarations
+import LiveWire from "./SVG's/LiveWireIcon";
 
 export const skillBtnDetails: { skill: string; type: string; iconOrImageString?: string; component?: React.ComponentType }[] = [
   { skill: "React", type: "icon", iconOrImageString: "devicon-react-original" },
@@ -29,13 +31,16 @@ export const skillBtnDetails: { skill: string; type: string; iconOrImageString?:
   {
     skill: "Laravel",
     type: "icon",
-    iconOrImageString: "devicon-laravel-plain",
+    iconOrImageString: "devicon-laravel-origin",
   },
+
   {
     skill: "GitHub",
     type: "icon",
     iconOrImageString: "devicon-github-original",
   },
+  // { skill: "LiveWire", type: "svg", component: LiveWire },
+
   { skill: "SolidWorks", type: "svg", component: SolidworksIcon },
   { skill: "Word", type: "svg", component: WordIcon },
   { skill: "Excel", type: "svg", component: ExcelIcon },

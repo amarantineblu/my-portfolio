@@ -16,15 +16,19 @@ export default function AdminLayout() {
   return (
     <>
       <style>{`
+
       @font-face {
         font-family: "SUSE";
         src: url("./assets/fonts/SUSE/SUSE-VariableFont_wght.ttf") format("truetype");
         font-weight: 100 900; /* variable font range */
         font-display: swap;   /* ensures fallback until font loads */
       }
+
+      *{
+        font-family: "SUSE" !important;
+      }
       
       body {
-        font-family: "SUSE", Arial, sans-serif;
         background: #f4f6f9;
         color: #212529;
         margin: 0;
@@ -36,7 +40,6 @@ export default function AdminLayout() {
         background-color: #0e274c !important; /* Bootstrap dark */
         color: #fff;
         position: fixed !important;
-      
       }
       
       .container{
@@ -50,6 +53,12 @@ export default function AdminLayout() {
         border-radius: 50px;
         z-index: 1030; /* above sidebar */
       }
+      
+      #sidebar .nav-link.active{
+        background: none !important;
+        border: 2px solid white !important;
+      }
+
       #sidebar {
         width: auto !important;
         transition: all 0.3s;

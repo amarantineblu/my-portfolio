@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "./../firebase"; // assuming you export storage from firebase.ts
 
 export interface FormField {
   name: string;
@@ -40,7 +42,7 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
       setValues({ ...values, projectMedia: urls }); // store array of URLs
     }
   };
-  
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -108,12 +110,12 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                   <input
                     type="file"
                     id={field.name}
-                    accept="images/*"
+                    accept="image/*,video/*"   // allow both images and videos
                     multiple
                     name={field.name}
                     className="form-control"
                     required={field.required}
-                    onChange={handleChange}
+                    onChange={handleFileChange}   // use upload handler
                   />
                 ) : (
                   <input

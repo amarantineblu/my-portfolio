@@ -26,6 +26,7 @@ export default function AdminLayout() {
 
       *{
         font-family: "SUSE" !important;
+        font-weight: 0 !important;
       }
       
       body {
@@ -79,6 +80,10 @@ export default function AdminLayout() {
         padding: 0.75rem 1rem;
         transition: all 0.2s ease;
       }
+
+      #sidebar ul li a.nav-link{
+      color:#fff !important;
+      }
       
       #sidebar .nav-link:hover {
         color: #fff;
@@ -111,7 +116,7 @@ export default function AdminLayout() {
         display: inline;
       }
 
-      @media (max-width: 500px) {
+      @media (max-width: 600px) {
         #sidebar.collapsed {
           position: fixed;
           top: 56px; /* below navbar */
@@ -125,6 +130,7 @@ export default function AdminLayout() {
         }
       }
       `}</style>
+      
       <AdminNavBar />
 
       <div className="d-flex">

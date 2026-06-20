@@ -3,12 +3,12 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Copy package files from the nested folder
-COPY my-portfolio/my-portfolio/package*.json ./
+# Copy package files
+COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the project
-COPY my-portfolio/my-portfolio ./
+COPY . .
 
 # Build the app (Vite outputs to dist/)
 RUN npm run build

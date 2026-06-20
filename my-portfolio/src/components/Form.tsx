@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "./../firebase"; // assuming you export storage from firebase.ts
 
@@ -19,8 +20,8 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" }) => {
   const [values, setValues] = useState<Record<string, any>>({});
-  const [tags, setTags] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [highlights, setHighlights] = useState<string[]>([]);
+  const [highlightInput, setHighlightInput] = useState<string>("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -31,33 +32,28 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      // Upload each file to Firebase Storage
       const urls = await Promise.all(
         files.map(async (file) => {
-          const storageRef = ref(storage, `projects/${file.name}`);
+          const storageRef = ref(storage, `projects/${uuid()}-${file.name}`);
           await uploadBytes(storageRef, file);
           return await getDownloadURL(storageRef);
         })
       );
-      setValues({ ...values, projectMedia: urls }); // store array of URLs
+      setValues({ ...values, projectMedia: urls });
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
+  const handleHighlightKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && highlightInput.trim() !== "") {
       e.preventDefault();
-      const tag = inputValue.trim();
-      if (tag && !tags.includes(tag)) {
-        const newTags = [...tags, tag];
-        setTags(newTags);
-        setInputValue(newTags.join("\n")); // show tags stacked in textarea
-      }
+      setHighlights([...highlights, highlightInput.trim()]);
+      setHighlightInput("");
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ ...values, projectTags: tags });
+    onSubmit({ ...values, projectHighlights: highlights });
   };
 
   return (
@@ -70,16 +66,24 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                 <label htmlFor={field.name} className="form-label">
                   {field.label}
                 </label>
-                {field.name === "projectTags" ? (
-                  <textarea
-                    id={field.name}
-                    name={field.name}
-                    className="form-control"
-                    placeholder="Type a tag and press Enter"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
+                {field.name === "projectHighlights" ? (
+                  <div>
+                    <input
+                      type="text"
+                      id={field.name}
+                      name={field.name}
+                      className="form-control"
+                      placeholder="Type a highlight and press Enter"
+                      value={highlightInput}
+                      onChange={(e) => setHighlightInput(e.target.value)}
+                      onKeyDown={handleHighlightKeyDown}
+                    />
+                    <ul className="mt-2">
+                      {highlights.map((h, i) => (
+                        <li key={i}>{h}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ) : field.type === "select" ? (
                   <select
                     id={field.name}
@@ -110,12 +114,12 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                   <input
                     type="file"
                     id={field.name}
-                    accept="image/*,video/*"   // allow both images and videos
+                    accept="image/*,video/*"
                     multiple
                     name={field.name}
                     className="form-control"
                     required={field.required}
-                    onChange={handleFileChange}   // use upload handler
+                    onChange={handleFileChange}
                   />
                 ) : (
                   <input

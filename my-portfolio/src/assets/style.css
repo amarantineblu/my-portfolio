@@ -492,6 +492,10 @@ li .nav-link.active {
     overflow: hidden !important;
   }
 
+  .home .spotlight{
+    height: 100% !important;
+  }
+
   .spotlight .card {
     width: 75%;
   }

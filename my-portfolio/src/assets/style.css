@@ -232,7 +232,7 @@ nav .actions {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  top: 10%;
+  top: 3%;
   left: 0;
   z-index: -2;
   animation: re_arrange_small 3000ms 500ms forwards;
@@ -240,8 +240,10 @@ nav .actions {
 
 .home .spotlight .home-text {
   position: absolute;
-  top: 40%;
+  top: 55%;
   padding: 2rem;
+  background-color: rgba(255, 255, 224, 0.236);
+  backdrop-filter: blur(5px) !important;
   animation: home_text_reveal 400ms 3000ms forwards;
 }
 
@@ -596,6 +598,9 @@ li .nav-link.active {
     animation: re_arrange 3000ms 500ms forwards;
   }
 
+  .skill-btn{
+    display: flex !important;
+  }
   .about .about-section .container {
     display: flex;
     align-items: center;
@@ -676,7 +681,7 @@ li .nav-link.active {
 /* Skill button styling (copied from original index.html and adapted) */
 .skill-btn {
   position: absolute;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 90px;

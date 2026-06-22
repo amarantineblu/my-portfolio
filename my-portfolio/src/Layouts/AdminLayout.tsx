@@ -45,7 +45,7 @@ export default function AdminLayout() {
       
       .container{
       position: relative;
-      top: 50px !important;
+      top: 5rem !important;
       }
 
       .navbar{
@@ -116,8 +116,11 @@ export default function AdminLayout() {
         display: inline;
         color:white !important;
       }
-
+      nav.navbar{
+        margin: unset !important;
+        }
       @media (max-width: 600px) {
+      
         #sidebar.collapsed {
           position: fixed;
           top: 56px; /* below navbar */

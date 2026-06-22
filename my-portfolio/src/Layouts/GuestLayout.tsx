@@ -96,11 +96,11 @@ export default function GuestLayout() {
           </div>
         </div>
         <div className="btn-group p-2">
-          <button className="btn btn-sm" >
+          <button className="btn btn-sm me-2 " >
             {" "}
-            <i className="bi bi-person-lock"></i>
+            <i className="bi bi-person-lock "></i>
           </button>
-          <button className="btn btn-sm">
+          <button className="btn btn-sm me-2">
             {" "}
             <i className="bi bi-brightness-high"></i>{" "}
           </button>

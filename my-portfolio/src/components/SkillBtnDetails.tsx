@@ -31,9 +31,13 @@ export const skillBtnDetails: { skill: string; type: string; iconOrImageString?:
   {
     skill: "Laravel",
     type: "icon",
-    iconOrImageString: "devicon-laravel-origin",
+    iconOrImageString: "devicon-laravel-line colored",
   },
-
+  {
+    skill: "LiveWire",
+    type: "icon",
+    iconOrImageString: "devicon-livewire-plain colored",
+  },
   {
     skill: "GitHub",
     type: "icon",
@@ -46,5 +50,7 @@ export const skillBtnDetails: { skill: string; type: string; iconOrImageString?:
   { skill: "Excel", type: "svg", component: ExcelIcon },
   { skill: "PowerPoint", type: "svg", component: PowerpointIcon },
   { skill: "Paint", type: "icon", iconOrImageString: "bi bi-brush" },
-  { skill: "Mechanics", type: "svg", component: MechanicsIcon },
+  {skill: 'Mechanics', type: 'icon', iconOrImageString:'bi bi-gear-wide'},
+
+  {skill: 'PHP', type: 'icon', iconOrImageString:'bi bi-filetype-php'}
 ];

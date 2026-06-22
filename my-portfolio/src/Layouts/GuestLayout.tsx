@@ -46,7 +46,7 @@ export default function GuestLayout() {
             <span
               id="menu-bar"
               className={`bi ${
-                menuOpen ? "bi-x-square-fill" : "bi-menu-button-wide-fill"
+                menuOpen ? "bi-x-square-fill" : "bi-toggles"
               }`}
             ></span>
           </button>

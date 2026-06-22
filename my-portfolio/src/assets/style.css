@@ -231,7 +231,7 @@ nav .actions {
   overflow: visible;
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100;
   top: 3%;
   left: 0;
   z-index: -2;
@@ -242,7 +242,7 @@ nav .actions {
   position: absolute;
   top: 55%;
   padding: 2rem;
-  background-color: rgba(255, 255, 224, 0.236);
+  background-color: rgba(255, 255, 224, 0.81);
   backdrop-filter: blur(5px) !important;
   animation: home_text_reveal 400ms 3000ms forwards;
 }
@@ -687,8 +687,8 @@ li .nav-link.active {
   width: 90px;
   height: 90px;
   border-radius: 20px;
-  background: rgba(225, 106, 9, 0.425);
-  backdrop-filter: blur(10px);
+  background: rgba(233, 86, 6, 0.673);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   font-size: 2rem;
   cursor: grab;

@@ -1,6 +1,9 @@
 import Form, { FormField } from "../../components/Form";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./../../firebase";
+import { useNavigate } from "react-router-dom";
+import supabase  from "../../supabase"; // centralized client
+import { v4 as uuid } from "uuid";
 
 const ProjectsAdminPage: React.FC = () => {
   const fields: FormField[] = [
@@ -56,7 +59,7 @@ const ProjectsAdminPage: React.FC = () => {
     {
       name: "projectHighlights",
       label: "Project Highlights",
-      type: "bullets", // handled specially in Form
+      type: "bullets",
       placeholder: "Enter project highlights",
       required: false,
     },
@@ -69,14 +72,59 @@ const ProjectsAdminPage: React.FC = () => {
     },
   ];
 
-  const handleSubmit = async (values: Record<string, any>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (
+    values: Record<string, any>,
+    selectedFiles: File[],
+    highlights: string[]
+  ) => {
     try {
+      // 🔐 Authenticate once here
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: "amaranthblu@yahoo.com",
+        password: "86244286jc",
+      });
+
+      if (signInError) {
+        console.error("Login failed:", signInError.message);
+        return;
+      }
+      console.log("Authenticated as:", signInData.user.email);
+
+      // 📂 Upload files
+      const urls = await Promise.all(
+        selectedFiles.map(async (file) => {
+          const safeName = file.name.replace(/\s+/g, "_");
+          const fileName = `${uuid()}-${safeName}`;
+
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from("projects-images")
+            .upload(fileName, file, { contentType: file.type });
+
+          if (uploadError) {
+            console.error("Upload error:", uploadError.message);
+            return null;
+          }
+
+          const { data: publicUrlData } = supabase.storage
+            .from("projects-images")
+            .getPublicUrl(fileName);
+
+          return publicUrlData.publicUrl;
+        })
+      );
+
+      // 🗄️ Save project in Firestore
       await addDoc(collection(db, "projects"), {
         ...values,
-        projectHighlights: values.projectHighlights, // array of bullet points
+        projectMedia: urls,
+        projectHighlights: highlights,
         createdAt: new Date(),
       });
+
       console.log("Project submitted:", values);
+      navigate("/admin");
     } catch (error) {
       console.error("Error adding Projects:", error);
     }
@@ -86,15 +134,13 @@ const ProjectsAdminPage: React.FC = () => {
     <div className="container mt-5">
       <div className="card mb-4">
         <div className="card-header">
-        <h1 className="mb-4">Projects Management</h1>
-
+          <h1 className="mb-4">Projects Management</h1>
           <i className="fas fa-plus"></i> Add New Project
         </div>
         <div className="card-body">
           <Form fields={fields} onSubmit={handleSubmit} submitLabel="Add New Project" />
         </div>
       </div>
-      {/* Existing projects table remains unchanged */}
     </div>
   );
 };

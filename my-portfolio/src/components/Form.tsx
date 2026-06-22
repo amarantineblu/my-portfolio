@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
-import  supabase from "./../supabase"; // NEW: import Supabase client
 
 export interface FormField {
   name: string;
@@ -13,7 +11,7 @@ export interface FormField {
 
 interface FormProps {
   fields: FormField[];
-  onSubmit: (values: Record<string, any>) => void;
+  onSubmit: (values: Record<string, any>, files: File[], highlights: string[]) => void;
   submitLabel?: string;
 }
 
@@ -43,33 +41,9 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Upload selected files to Supabase Storage
-    const urls = await Promise.all(
-      selectedFiles.map(async (file) => {
-        const fileName = `projects/${uuid()}-${file.name}`;
-
-        const { error } = await supabase.storage
-          .from("project-images") // bucket name in Supabase
-          .upload(fileName, file);
-
-        if (error) {
-          console.error("Upload error:", error.message);
-          return null;
-        }
-
-        const { data } = supabase.storage
-          .from("portfolio-images")
-          .getPublicUrl(fileName);
-
-        return data.publicUrl;
-      })
-    );
-
-    const finalValues = { ...values, projectMedia: urls, projectHighlights: highlights };
-    onSubmit(finalValues);
+    onSubmit(values, selectedFiles, highlights);
   };
 
   return (

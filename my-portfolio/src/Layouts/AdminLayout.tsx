@@ -26,7 +26,7 @@ export default function AdminLayout() {
 
       *{
         font-family: "SUSE" !important;
-        font-weight: 0 !important;
+        font-weight: lighter !important;
       }
       
       body {

@@ -2,6 +2,8 @@ import React from "react";
 import Form, { FormField } from "../components/Form";
 import { login } from "../Controllers/authController";
 import { useNavigate } from "react-router-dom";
+import supabase from "../supabase";
+
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
@@ -29,6 +31,10 @@ const Login: React.FC = () => {
   const handleLogin = async (values: Record<string, string>) => {
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
+      await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.password,
+      });
       navigate("/admin");
     } catch {
       alert("Login failed");

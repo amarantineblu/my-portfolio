@@ -12,7 +12,7 @@ import Register from "./Pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 // @ts-ignore
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
 import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
@@ -21,6 +21,7 @@ import { DatabaseSync } from "node:sqlite";
 import AlertComponent from "./components/Alert";
 import { useEffect } from "react";
 import { log } from "console";
+
 
 function App() {
   

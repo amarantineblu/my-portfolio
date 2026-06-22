@@ -1,21 +1,26 @@
-// firebase.ts
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCf5ZabBVLJKLyfRmp9iadBlo_oy_f4apM",
   authDomain: "my-portfolio-a3925.firebaseapp.com",
   projectId: "my-portfolio-a3925",
-  storageBucket: "my-portfolio-a3925.firebasestorage.app",
+  storageBucket: "my-portfolio-a3925.appspot.com", // ✅ FIXED
   messagingSenderId: "866055941931",
   appId: "1:866055941931:web:06b8d0cb507e917c719f6e",
   measurementId: "G-T3W2T8ND9B"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
+// Export the services you need
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app);
+export const storage = getStorage(app); // ✅ this is your storage variable

@@ -114,6 +114,7 @@ export default function AdminLayout() {
       /* Expanded state: show text */
       #sidebar:not(.collapsed) .sidebar-text {
         display: inline;
+        color:white !important;
       }
 
       @media (max-width: 600px) {
@@ -122,6 +123,8 @@ export default function AdminLayout() {
           top: 56px; /* below navbar */
           left: -200px;
         }
+
+       
         #sidebar .sidebar-text {
           display: none !important;
         }

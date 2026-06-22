@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "./../firebase"; // assuming you export storage from firebase.ts
+import  supabase from "./../supabase"; // NEW: import Supabase client
 
 export interface FormField {
   name: string;
@@ -22,6 +21,7 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
   const [values, setValues] = useState<Record<string, any>>({});
   const [highlights, setHighlights] = useState<string[]>([]);
   const [highlightInput, setHighlightInput] = useState<string>("");
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -29,18 +29,10 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      const urls = await Promise.all(
-        files.map(async (file) => {
-          const storageRef = ref(storage, `projects/${uuid()}-${file.name}`);
-          await uploadBytes(storageRef, file);
-          return await getDownloadURL(storageRef);
-        })
-      );
-      setValues({ ...values, projectMedia: urls });
-    }
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
   };
 
   const handleHighlightKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,9 +43,33 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ ...values, projectHighlights: highlights });
+
+    // Upload selected files to Supabase Storage
+    const urls = await Promise.all(
+      selectedFiles.map(async (file) => {
+        const fileName = `projects/${uuid()}-${file.name}`;
+
+        const { error } = await supabase.storage
+          .from("project-images") // bucket name in Supabase
+          .upload(fileName, file);
+
+        if (error) {
+          console.error("Upload error:", error.message);
+          return null;
+        }
+
+        const { data } = supabase.storage
+          .from("portfolio-images")
+          .getPublicUrl(fileName);
+
+        return data.publicUrl;
+      })
+    );
+
+    const finalValues = { ...values, projectMedia: urls, projectHighlights: highlights };
+    onSubmit(finalValues);
   };
 
   return (

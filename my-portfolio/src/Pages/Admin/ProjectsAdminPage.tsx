@@ -81,21 +81,15 @@ const ProjectsAdminPage: React.FC = () => {
   ) => {
     try {
       // 🔐 Authenticate once here
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: "amaranthblu@yahoo.com",
-        password: "86244286jc",
-      });
+      const { data: { user } } = await supabase.auth.getUser();
 
-      if (signInError) {
-        console.error("Login failed:", signInError.message);
-        return;
-      }
-      console.log("Authenticated as:", signInData.user.email);
-
+      user && console.log(`Authenticated as ${user.email}`);
       // 📂 Upload files
       const urls = await Promise.all(
         selectedFiles.map(async (file) => {
-          const safeName = file.name.replace(/\s+/g, "_");
+          const safeName = file.name
+          .replace(/\s+/g, "_")          // replace spaces
+          .replace(/[^\w.-]/g, "");  
           const fileName = `${uuid()}-${safeName}`;
 
           const { data: uploadData, error: uploadError } = await supabase.storage
@@ -110,6 +104,10 @@ const ProjectsAdminPage: React.FC = () => {
           const { data: publicUrlData } = supabase.storage
             .from("projects-images")
             .getPublicUrl(fileName);
+
+          console.log('this is the public URL '+ supabase.storage
+            .from("projects-images")
+            .getPublicUrl(fileName));
 
           return publicUrlData.publicUrl;
         })

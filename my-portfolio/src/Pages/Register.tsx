@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form, { FormField } from "../components/Form";
 import Alert from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import supabase  from "../supabase"; // centralized client
+
 
 import {
   createUserWithEmailAndPassword,
@@ -20,6 +22,10 @@ const Register: React.FC = () => {
       const { email, password } = values;
       console.log("Registering user:", values);
       await createUserWithEmailAndPassword(auth, email, password);
+      await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
       const msg = "User registered successfully!";
       // visible in-page alert (use shared Alert component)
       setAlertMessage(msg);

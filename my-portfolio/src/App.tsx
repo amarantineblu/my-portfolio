@@ -8,7 +8,6 @@ import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-
 import ProtectedRoute from "./components/ProtectedRoute";
 // import {Helmet, HelmetProvider} from 'react-helmet-async'
 // @ts-ignore
@@ -16,6 +15,8 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
 import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
+import AddProjectsAdminPage from "./Pages/Admin/AddProjectsAdminPage";
+
 import { DatabaseSync } from "node:sqlite";
 
 import AlertComponent from "./components/Alert";
@@ -53,6 +54,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProjectsAdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="addprojectspage"
+            element={
+              <ProtectedRoute>
+                <AddProjectsAdminPage />
               </ProtectedRoute>
             }
           />

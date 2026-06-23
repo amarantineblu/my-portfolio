@@ -1,146 +1,64 @@
-import Form, { FormField } from "../../components/Form";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./../../firebase";
-import { useNavigate } from "react-router-dom";
-import supabase  from "../../supabase"; // centralized client
-import { v4 as uuid } from "uuid";
+
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import {db} from './../../firebase';
+import getProjectsData from './../../utils/ProjectsData';
+
 
 const ProjectsAdminPage: React.FC = () => {
-  const fields: FormField[] = [
-    {
-      name: "projectCategory",
-      label: "Project Category",
-      type: "select",
-      options: [
-        { value: "web-development", label: "Web Development" },
-        { value: "mobile-development", label: "Mobile Development" },
-        { value: "design", label: "Design" },
-      ],
-      required: true,
-    },
-    {
-      name: "projectName",
-      label: "Project Name",
-      type: "text",
-      placeholder: "Enter Full Name",
-      required: true,
-    },
-    {
-      name: "projectLanguages",
-      label: "Project Languages",
-      type: "text",
-      placeholder: "Enter Project Languages",
-      required: true,
-    },
-    {
-      name: "projectStatus",
-      label: "Project Status",
-      type: "select",
-      options: [
-        { value: "completed", label: "Completed" },
-        { value: "in-progress", label: "In Progress" },
-        { value: "on-hold", label: "On Hold" },
-      ],
-      required: true,
-    },
-    {
-      name: "projectLink",
-      label: "Project Link",
-      type: "text",
-      placeholder: "Enter Project Link",
-      required: false,
-    },
-    {
-      name: "projectMedia",
-      label: "Project Image or Video",
-      type: "file",
-      required: true,
-    },
-    {
-      name: "projectHighlights",
-      label: "Project Highlights",
-      type: "bullets",
-      placeholder: "Enter project highlights",
-      required: false,
-    },
-    {
-      name: "projectDescription",
-      label: "Project Description",
-      type: "textarea",
-      placeholder: "Enter Project Description",
-      required: true,
-    },
-  ];
+  
+  useEffect( ()=>{
+    console.log('this is the query snapshot '+ getProjectsData);
+
+  }, [])
+ 
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (
-    values: Record<string, any>,
-    selectedFiles: File[],
-    highlights: string[]
-  ) => {
-    try {
-      // 🔐 Authenticate once here
-      const { data: { user } } = await supabase.auth.getUser();
 
-      user && console.log(`Authenticated as ${user.email}`);
-      // 📂 Upload files
-      const urls = await Promise.all(
-        selectedFiles.map(async (file) => {
-          const safeName = file.name
-          .replace(/\s+/g, "_")          // replace spaces
-          .replace(/[^\w.-]/g, "");  
-          const fileName = `${uuid()}-${safeName}`;
-
-          const { data: uploadData, error: uploadError } = await supabase.storage
-            .from("projects-images")
-            .upload(fileName, file, { contentType: file.type });
-
-          if (uploadError) {
-            console.error("Upload error:", uploadError.message);
-            return null;
-          }
-
-          const { data: publicUrlData } = supabase.storage
-            .from("projects-images")
-            .getPublicUrl(fileName);
-
-          console.log('this is the public URL '+ supabase.storage
-            .from("projects-images")
-            .getPublicUrl(fileName));
-
-          return publicUrlData.publicUrl;
-        })
-      );
-
-      // 🗄️ Save project in Firestore
-      await addDoc(collection(db, "projects"), {
-        ...values,
-        projectMedia: urls,
-        projectHighlights: highlights,
-        createdAt: new Date(),
-      });
-
-      console.log("Project submitted:", values);
-      navigate("/admin");
-    } catch (error) {
-      console.error("Error adding Projects:", error);
-    }
-  };
 
   return (
-    <div className="container mt-5">
-      <div className="card mb-4">
-        <div className="card-header">
-          <h1 className="mb-4">Projects Management</h1>
-          <i className="fas fa-plus"></i> Add New Project
+  <>
+  <div className="container mt-5">
+    <div className="card mb-4">
+      <div className="card-header">
+        <i className="bi bi-folder"></i> My Projects
+        <Link to='/admin/addprojectspage' className="btn btn-sm justify-self-end"><i className="bi bi-clipboard-plus"></i> Add New Project </Link>
         </div>
-        <div className="card-body">
-          <Form fields={fields} onSubmit={handleSubmit} submitLabel="Add New Project" />
-        </div>
+      <div className="card-body">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Status</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Portfolio Website</td>
+              <td><span className="badge bg-success">Completed</span></td>
+              <td>2026-05-20</td>
+            </tr>
+            <tr>
+              <td>Attendance Manager</td>
+              <td><span className="badge bg-warning">In Progress</span></td>
+              <td>2026-06-01</td>
+            </tr>
+            <tr>
+              <td>Dashboard App</td>
+              <td><span className="badge bg-info">Testing</span></td>
+              <td>2026-06-03</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    </div>
+    
+  </>
   );
-};
+  };
 
-export default ProjectsAdminPage;
+  export default ProjectsAdminPage;

@@ -2,8 +2,16 @@ import { NavLink, Link, Location, Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import AdminNavBar from "../components/Admin/AdminNavBar";
 import AdminSideBar from "../components/Admin/AdminSideBar";
+import { useNavigate } from "react-router-dom";
+
+import supabase from "./../supabase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./../firebase";
+
 import { Helmet } from "react-helmet-async";
 export default function AdminLayout() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const mainEl = document.querySelector("main");
     if (mainEl) {
@@ -12,7 +20,21 @@ export default function AdminLayout() {
     }
 
     document.body.className = "dash";
+
   });
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      const auth = getAuth();
+  
+      if (!user && !auth.currentUser) {
+        navigate("/login"); // redirect if not authenticated
+      }
+    };
+  
+    checkAuth();
+  }, [navigate]);
   return (
     <>
       <style>{`

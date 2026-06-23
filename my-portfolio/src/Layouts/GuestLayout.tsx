@@ -4,9 +4,7 @@ import { Outlet, Link, useLocation, NavLink } from "react-router-dom";
 import SkillButtonsContainer from "../components/SkillButtonsContainer";
 import "./../assets/style.css";
 import { useNavigate } from "react-router-dom";
-import supabase from "./../supabase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./../firebase";
+
 
 export default function GuestLayout() {
   const navigate = useNavigate();
@@ -14,18 +12,7 @@ export default function GuestLayout() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      const auth = getAuth();
   
-      if (!user && !auth.currentUser) {
-        navigate("/login"); // redirect if not authenticated
-      }
-    };
-  
-    checkAuth();
-  }, [navigate]);
   useEffect(() => {
     // clear existing classes
     document.body.className = "";

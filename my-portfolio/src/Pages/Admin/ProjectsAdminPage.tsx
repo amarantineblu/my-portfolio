@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import {db} from './../../firebase';
-import getProjectsData from './../../utils/ProjectsData';
+import {getProjectsData} from './../../utils/ProjectsData';
 
 
 const ProjectsAdminPage: React.FC = () => {
@@ -11,7 +11,7 @@ const ProjectsAdminPage: React.FC = () => {
   
   useEffect( ()=>{
     const fetchProjects = async () => {
-      const querySnapshot = await getProjectsData;
+      const querySnapshot = await getProjectsData();
       const data = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),

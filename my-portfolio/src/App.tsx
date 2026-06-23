@@ -16,6 +16,7 @@ import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
 import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
 import AddProjectsAdminPage from "./Pages/Admin/AddProjectsAdminPage";
+import SingleProjectPage from "./Pages/Admin/SingleProjectPage";
 
 import { DatabaseSync } from "node:sqlite";
 
@@ -62,6 +63,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AddProjectsAdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="projects/:id"
+            element={
+              <ProtectedRoute>
+                <SingleProjectPage />
               </ProtectedRoute>
             }
           />

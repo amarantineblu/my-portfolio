@@ -231,7 +231,7 @@ nav .actions {
   overflow: visible;
   position: absolute;
   width: 100vw;
-  height: 100;
+  height: auto !important;
   top: 3%;
   left: 0;
   z-index: -2;

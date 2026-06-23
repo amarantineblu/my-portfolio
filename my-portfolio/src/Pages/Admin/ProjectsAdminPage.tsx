@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import {db} from './../../firebase';
@@ -7,9 +7,18 @@ import getProjectsData from './../../utils/ProjectsData';
 
 
 const ProjectsAdminPage: React.FC = () => {
+  const [projects, setProjects] = useState<any[]>([]);
   
   useEffect( ()=>{
-    console.log('this is the query snapshot '+ getProjectsData);
+    const fetchProjects = async () => {
+      const querySnapshot = await getProjectsData;
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProjects(data);
+    };
+    fetchProjects();
 
   }, [])
  
@@ -33,24 +42,27 @@ const ProjectsAdminPage: React.FC = () => {
               <th>Project Name</th>
               <th>Status</th>
               <th>Last Updated</th>
+              <th>actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Portfolio Website</td>
-              <td><span className="badge bg-success">Completed</span></td>
-              <td>2026-05-20</td>
+            {projects.map((project) => (
+              <tr key={project.id}>
+              <td>{project.projectName}</td>
+              <td><span className="badge text-white bg-success">{project.projectStatus}</span>
+              </td>
+              <td>
+              {project.createdAt?.toDate
+                ? project.createdAt.toDate().toLocaleDateString()
+                : ""}
+              </td>              
+              <td className="btn-group">
+                <button  onClick={() => navigate(`/admin/projects/${project.id}`)} className="btn btn-sm me-2 btn-outline-success"><i className="bi bi-eye"></i></button>
+                <button onClick={() => navigate(`/admin/delete-project/${project.id}`)}  className="btn btn-sm me-2 btn-outline-danger"><i className="bi bi-x"></i></button>
+              </td>
             </tr>
-            <tr>
-              <td>Attendance Manager</td>
-              <td><span className="badge bg-warning">In Progress</span></td>
-              <td>2026-06-01</td>
-            </tr>
-            <tr>
-              <td>Dashboard App</td>
-              <td><span className="badge bg-info">Testing</span></td>
-              <td>2026-06-03</td>
-            </tr>
+            ))}
+           
           </tbody>
         </table>
       </div>

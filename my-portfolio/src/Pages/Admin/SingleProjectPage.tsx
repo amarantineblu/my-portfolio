@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 import { useParams } from "react-router-dom";
 import { getProjectById } from "./../../utils/ProjectsData";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "./../../firebase";
+import supabase from "../../supabase";
 
 type Project = {
 projectMedia?: string[];
@@ -18,16 +20,67 @@ projectLink?: string;
 const SingleProjectPage: React.FC = () => {
 const { id } = useParams();
 const [showModal, setShowModal] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
 const [activeField, setActiveField] = useState<string | null>(null);
   const [project, setProject] = useState<Project | null>(null);
 
+  const deleteImage = async (projectId:string,publicUrl:string,project:Project) => {
+
+    const bucketName = "projects-images";
+    const parts = publicUrl.split(`${bucketName}/`);
+    const filePath = parts[1]; // e.g. "6NTLzFxO6kVqX6I1XVMf/image1.png"
+    const { data, error } = await supabase.storage
+    .from(bucketName) // bucket name
+    .remove([filePath]);
+    if (error) {
+      console.error("Error deleting image:", error);
+      return;
+    }
+  
+    console.log("Image deleted:", filePath);
+
+    
+    // Update Firestore to remove the deleted URL
+    const projectRef = doc(db, "projects", projectId);
+    const newMedia = (project.projectMedia || []).filter((url) => url !== publicUrl);
+    await updateDoc(projectRef, { projectMedia: newMedia });
+  }
+
+  const addNewImage = async (files: FileList, projectId: string, project: Project) => {
+    const bucketName = "projects-images";
+    const uploadedUrls: string[] = [];
+  
+    for (const file of Array.from(files)) {
+      const filePath = `${projectId}/${file.name}`;
+  
+      // Upload to Supabase
+      const { error } = await supabase.storage
+        .from(bucketName)
+        .upload(filePath, file, { upsert: true });
+  
+      if (error) {
+        console.error("Upload error:", error);
+        continue;
+      }
+  
+      // Get public URL
+      const { data } = supabase.storage.from(bucketName).getPublicUrl(filePath);
+      uploadedUrls.push(data.publicUrl);
+    }
+  
+    // Update Firestore with new URLs
+    const projectRef = doc(db, "projects", projectId);
+    await updateDoc(projectRef, {
+      projectMedia: [...(project.projectMedia || []), ...uploadedUrls],
+    });
+  };
     const handleClose = () => {
     setShowModal(false);
     setActiveField(null);
     };
 
     const handleClick = (field: string) => {
-      console.log('hello world');
     setActiveField(field);
     setShowModal(true);
     };
@@ -42,6 +95,7 @@ const [activeField, setActiveField] = useState<string | null>(null);
       e.preventDefault();
       if (!id) return;
 
+      
       const value = (
         e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
       ).value;
@@ -150,6 +204,23 @@ const [activeField, setActiveField] = useState<string | null>(null);
                       }
                       />
                       <label htmlFor="editLanguages">Languages</label>
+                    </div>
+                    )}
+
+ {/* Images */}
+                    {activeField === "project-image" && (
+                    <div className="form-floating mb-3">
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*,video/*"
+                        className="form-control rounded-3"
+                        id="addImage"
+                        onChange={(e) => {if(e.target.files) {
+                          addNewImage(e.target.files, id!, project)
+                        }}}
+                      />
+                      <label htmlFor="editLanguages">Project Image</label>
                     </div>
                     )}
 
@@ -299,23 +370,31 @@ const [activeField, setActiveField] = useState<string | null>(null);
             style={{
               display: "flex",
               flexDirection: "row",
-              overflow: "hidden",
+              overflowX: "auto",
               gap: ".5rem",
             }}
           >
+            <div  className="d-flex align-items-center justify-content-center">
+              <button style={{borderRadius:'50%'}} onClick={() => handleClick('project-image')} className=" clickable btn btn-l btn-success"><i className="bi bi-folder-plus text-white"></i></button>
+            </div>
             {project.projectMedia?.map((media, index) => (
-              <img
-                key={index}
-                src={media}
-                alt={project.projectName}
-                style={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                  borderRadius: "6px",
-                  marginBottom: "12px",
-                }}
-              />
+              <div key={index} style={{ gap: ".25rem" }}>
+                <button type="button" className="btn" onClick={() => deleteImage(id!,media, project)} 
+                style={{position: 'relative'}}>
+                  <i className="bi bi-bookmark-x-fill text-danger"></i>
+                </button>
+                <img
+                  src={media}
+                  alt={project.projectName}
+                  style={{
+                    width: "auto",
+                    height: "250px",
+                    objectFit: "cover",
+                    borderRadius: "6px",
+                    marginBottom: "12px",
+                  }}
+                />
+              </div>
             ))}
           </div>
 

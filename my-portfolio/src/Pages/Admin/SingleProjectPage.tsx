@@ -27,19 +27,24 @@ const [activeField, setActiveField] = useState<string | null>(null);
     };
 
     const handleClick = (field: string) => {
+      console.log('hello world');
     setActiveField(field);
     setShowModal(true);
     };
 
     const handleKeyDown = async (
-    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.KeyboardEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
       field: string
       ) => {
       if (e.key === "Enter") {
       e.preventDefault();
       if (!id) return;
 
-      const value = (e.target as HTMLInputElement).value;
+      const value = (
+        e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      ).value;
       const projectRef = doc(db, "projects", id);
 
       try {
@@ -101,6 +106,41 @@ const [activeField, setActiveField] = useState<string | null>(null);
 
                 <div className="modal-body p-5 pt-0">
                   <form>
+                  {/* Category */}
+{activeField === "projectCategory" && (
+  <div className="form-floating mb-3">
+    <select
+      className="form-select rounded-3"
+      defaultValue={project?.projectCategory}
+      onKeyDown={(e) => handleKeyDown(e, "projectCategory")}
+    >
+      <option value="web-development">Web</option>
+      <option value="mobile-development">Mobile</option>
+      <option value="design">Design</option>
+      <option value="other">Other</option>
+    </select>
+    <label htmlFor="editCategory">Category</label>
+  </div>
+)}
+
+{/* Status */}
+{activeField === "projectStatus" && (
+  <div className="form-floating mb-3">
+    <select
+      className="form-select rounded-3"
+      defaultValue={project?.projectStatus}
+      onKeyDown={(e) => handleKeyDown(e, "projectStatus")}
+    >
+      <option value="completed">Completed</option>
+      <option value="in-progress">In Progress</option>
+      <option value="pending">Pending</option>
+      <option value="on-hold">On Hold</option>
+
+    </select>
+    <label htmlFor="editStatus">Status</label>
+  </div>
+)}
+
                     {/* Languages */}
                     {activeField === "languages" && (
                     <div className="form-floating mb-3">
@@ -217,33 +257,41 @@ const [activeField, setActiveField] = useState<string | null>(null);
         <div className="card-body">
           {/* Category & Status */}
           <div style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
-            <span
-              style={{
-                background: "#007bff",
-                color: "#fff",
-                padding: "4px 10px",
-                borderRadius: "4px",
-                fontSize: "0.9rem",
-              }}
-            >
-              {project.projectCategory}
-            </span>
-            <span
-              style={{
-                background:
-                  project.projectStatus === "completed"
-                    ? "#28a745"
-                    : project.projectStatus === "in-progress"
-                    ? "#ffc107"
-                    : "#6c757d",
-                color: "#fff",
-                padding: "4px 10px",
-                borderRadius: "4px",
-                fontSize: "0.9rem",
-              }}
-            >
-              {project.projectStatus}
-            </span>
+          {/* Category */}
+<span
+  className="clickable"
+  onClick={() => handleClick("projectCategory")}
+  style={{
+    background: "#007bff",
+    color: "#fff",
+    padding: "4px 10px",
+    borderRadius: "4px",
+    fontSize: "0.9rem",
+  }}
+>
+  {project.projectCategory}
+</span>
+
+{/* Status */}
+<span
+  className="clickable"
+  onClick={() => handleClick("projectStatus")}
+  style={{
+    background:
+      project.projectStatus === "completed"
+        ? "#28a745"
+        : project.projectStatus === "in-progress"
+        ? "#ffc107"
+        : "#6c757d",
+    color: "#fff",
+    padding: "4px 10px",
+    borderRadius: "4px",
+    fontSize: "0.9rem",
+  }}
+>
+  {project.projectStatus}
+</span>
+
           </div>
 
           {/* Media */}

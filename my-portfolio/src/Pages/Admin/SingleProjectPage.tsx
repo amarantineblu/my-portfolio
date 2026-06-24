@@ -1,129 +1,125 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProjectById } from "./../../utils/ProjectsData";
-import { collection, getDocs } from "firebase/firestore";
-import {db} from './../../firebase';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "./../../firebase";
 
 type Project = {
-  projectMedia?: string[];
-  projectName?: string;
-  projectCategory?: string;
-  projectStatus?: string;
-  projectLanguages?: string;
-  projectDescription?: string;
-  projectHighlights?: string[];
-  projectLink?: string;
+projectMedia?: string[];
+projectName?: string;
+projectCategory?: string;
+projectStatus?: string;
+projectLanguages?: string;
+projectDescription?: string;
+projectHighlights?: string[];
+projectLink?: string;
 };
 
 const SingleProjectPage: React.FC = () => {
-  const { id } = useParams();
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>, field:string) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // prevent form submission if needed
-      console.log("Enter pressed!");
-      // Do whatever you want here:
-      // - open modal
-      // - save data
-      // - call API
-
-      // - move focus
-    }
-  };
-  
-  const [showModal, setShowModal] = useState(false);
-  const [activeField, setActiveField] = useState<string | null>(null);
+const { id } = useParams();
+const [showModal, setShowModal] = useState(false);
+const [activeField, setActiveField] = useState<string | null>(null);
   const [project, setProject] = useState<Project | null>(null);
 
-  const handleClose = () => {
+    const handleClose = () => {
     setShowModal(false);
     setActiveField(null);
-  };
+    };
 
-  const handleClick = (field: string) => {
+    const handleClick = (field: string) => {
     setActiveField(field);
     setShowModal(true);
-  };
+    };
 
-  useEffect(() => {
-    const fetchProject = async () => {
+    const handleKeyDown = async (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+      field: string
+      ) => {
+      if (e.key === "Enter") {
+      e.preventDefault();
+      if (!id) return;
+
+      const value = (e.target as HTMLInputElement).value;
+      const projectRef = doc(db, "projects", id);
+
+      try {
+      await updateDoc(projectRef, { [field]: value });
+      console.log(`${field} updated successfully!`);
+
+      // update local state so UI reflects change immediately
+      setProject((prev) =>
+      prev ? { ...prev, [field]: value } : prev
+      );
+
+      setShowModal(false);
+      } catch (err) {
+      console.error("Error updating project:", err);
+      }
+      }
+      };
+
+      useEffect(() => {
+      const fetchProject = async () => {
       const data = await getProjectById(id!);
       setProject(data as Project | null);
-    };
-    fetchProject();
-  }, [id]);
+      };
+      fetchProject();
+      }, [id]);
 
-  if (!project) {
-    return <p>Loading project...</p>;
-  }
+      if (!project) {
+      return <p>Loading project...</p>;
+      }
 
-  return (
-    <>
-      <style>
-        {`
-          .clickable {
-            cursor: pointer !important;
+      return (
+      <>
+        <style>
+          {
+            ` .clickable {
+              cursor: pointer !important;
+            }
+
+            .clickable:hover {
+              background: yellow !important;
+            }
+
+            `
           }
-          .clickable:hover {
-            background: yellow !important;
-          }
-        `}
-      </style>
+        </style>
 
-     
-
-      {/* Card */}
-      <div
-        className="card"
-        style={{
-          maxWidth: "600px",
-          margin: "20px auto",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          padding: "16px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-         {/* Modal */}
-      {showModal && (
-          <div className="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5">
-            <div className="modal-dialog">
+        {/* Modal */}
+        {showModal && (
+        <>
+          <div className="modal d-block bg-body-secondary p-4 py-md-5">
+            <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4 border-bottom-0">
                   <h1 className="fw-bold mb-0 fs-2">
                     Edit {activeField?.toUpperCase()}
                   </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    aria-label="Close"
-                    onClick={handleClose}
-                  ></button>
+                  <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
                 </div>
 
                 <div className="modal-body p-5 pt-0">
                   <form>
                     {/* Languages */}
                     {activeField === "languages" && (
-                      <div className="form-floating mb-3">
-                        <input
-                          onKeyDown={(e) => {handleKeyDown(e, 'languages')}}
-                          type="text"
-                          className="form-control rounded-3"
-                          id="editLanguages"
-                          defaultValue={project?.projectLanguages}
-                        />
-                        <label htmlFor="editLanguages">Languages</label>
-                      </div>
+                    <div className="form-floating mb-3">
+                      <input type="text" className="form-control rounded-3" id="editLanguages"
+                        defaultValue={project?.projectLanguages} onKeyDown={(e)=>
+                      handleKeyDown(e, "projectLanguages")
+                      }
+                      />
+                      <label htmlFor="editLanguages">Languages</label>
+                    </div>
                     )}
 
                     {/* Description */}
                     {activeField === "description" && (
-                      <div className="form-floating mb-3">
-                        <textarea
-                          className="form-control rounded-3"
-                          id="editDescription"
-                          defaultValue={project?.projectDescription}
+                    <div className="form-floating mb-3">
+                      <textarea className="form-control rounded-3" id="editDescription"
+                        defaultValue={project?.projectDescription} onKeyDown={(e)=>
+                            handleKeyDown(e, "projectDescription")
+                          }
                         />
                         <label htmlFor="editDescription">Description</label>
                       </div>
@@ -133,12 +129,58 @@ const SingleProjectPage: React.FC = () => {
                     {activeField === "highlights" && (
                       <div className="mb-3">
                         <label className="form-label">Highlights</label>
+                        <button type="button"
+  className="btn btn-sm btn-outline-success"
+  onClick={async () => {
+    if (!id) return;
+
+    // Take the current highlights (or an empty array if none exist)
+    const newHighlights = [...(project?.projectHighlights || []), ""];
+
+    // Update Firestore with the new array
+    const projectRef = doc(db, "projects", id!);
+    await updateDoc(projectRef, {
+      projectHighlights: newHighlights,
+    });
+
+    // Update local state so React re-renders immediately
+    setProject((prev) =>
+      prev ? { ...prev, projectHighlights: newHighlights } : prev
+    );
+  }}
+>
+  <i className="bi bi-plus-circle-fill"></i>
+</button>
+
+
                         {project?.projectHighlights?.map((highlight, index) => (
                           <input
                             key={index}
                             type="text"
                             className="form-control mb-2"
                             defaultValue={highlight}
+                            onKeyDown={async (e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                const inputs =
+                                  document.querySelectorAll<HTMLInputElement>(
+                                    ".form-control.mb-2"
+                                  );
+                                const newHighlights = Array.from(inputs).map(
+                                  (input) => input.value
+                                );
+                                const projectRef = doc(db, "projects", id!);
+                                await updateDoc(projectRef, {
+                                  projectHighlights: newHighlights,
+                                });
+                                setProject((prev) =>
+                                  prev
+                                    ? { ...prev, projectHighlights: newHighlights }
+                                    : prev
+                                );
+                                setShowModal(false);
+                              }
+                            }}
                           />
                         ))}
                       </div>
@@ -148,7 +190,21 @@ const SingleProjectPage: React.FC = () => {
               </div>
             </div>
           </div>
+          <div className="modal-backdrop fade show"></div>
+        </>
       )}
+
+      {/* Card */}
+      <div className="card"
+        style={{
+          maxWidth: "600px",
+          margin: "20px auto",
+          border: "1px solid #ddd",
+          borderRadius: "8px",
+          padding: "16px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        }}
+      >
         <div className="card-header" style={{ display: "flex" }}>
           <h2>{project.projectName}</h2>
           <button
@@ -243,25 +299,6 @@ const SingleProjectPage: React.FC = () => {
                 ))}
               </ul>
             </div>
-          )}
-        </div>
-        <div className="card-footer">
-          {project.projectLink && (
-            <a
-              className="btn btn-sm btn-outline-warning text-white"
-              href={project.projectLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-block",
-                marginTop: "16px",
-                padding: "8px 14px",
-                textDecoration: "none",
-                borderRadius: "4px",
-              }}
-            >
-              View Project
-            </a>
           )}
         </div>
       </div>

@@ -67,7 +67,7 @@ function App() {
             }
           />
           <Route
-            path="projects/:id"
+            path="single-projects/:id"
             element={
               <ProtectedRoute>
                 <SingleProjectPage />

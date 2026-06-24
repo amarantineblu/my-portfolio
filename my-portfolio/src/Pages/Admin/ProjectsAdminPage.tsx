@@ -1,8 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import {db} from './../../firebase';
+
 import {getProjectsData} from './../../utils/ProjectsData';
 
 
@@ -57,8 +56,8 @@ const ProjectsAdminPage: React.FC = () => {
                 : ""}
               </td>              
               <td className="btn-group">
-                <button  onClick={() => navigate(`/admin/projects/${project.id}`)} className="btn btn-sm me-2 btn-outline-success"><i className="bi bi-eye"></i></button>
-                <button onClick={() => navigate(`/admin/delete-project/${project.id}`)}  className="btn btn-sm me-2 btn-outline-danger"><i className="bi bi-x"></i></button>
+                <button  onClick={() => navigate(`/admin/single-projects/${project.id}`)} className="btn me-2 btn-outline-success"><i className="bi bi-file-earmark-zip-fill"></i></button>
+                <button onClick={() => navigate(`/admin/delete-project/${project.id}`)}  className="btn me-2 btn-outline-danger"><i className="bi bi-x"></i></button>
               </td>
             </tr>
             ))}

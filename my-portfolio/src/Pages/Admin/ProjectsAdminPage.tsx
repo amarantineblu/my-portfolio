@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import {getProjectsData} from './../../utils/ProjectsData';
+import {getProjectById, getProjectsData} from './../../utils/ProjectsData';
+import { deleteImage } from "../../utils/DeleteImage";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 
 const ProjectsAdminPage: React.FC = () => {
@@ -24,6 +27,24 @@ const ProjectsAdminPage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const deleteProject = async (id: string) => {
+    const project:any = await getProjectById(id)
+    if (!project) return;
+  
+    // Delete all images
+    const project_media = project.projectMedia || [];
+    for (const mediaItem of project_media) {
+      await deleteImage(id, mediaItem, project);
+    }
+    // Delete the Firestore document itself
+    const projectRef = doc(db, "projects", id);
+    await deleteDoc(projectRef);
+  
+    console.log(`Project ${id} and all its images deleted successfully`);
+  
+    // Optional: refresh page so UI updates
+    window.location.reload();
+   };
 
 
   return (
@@ -57,7 +78,7 @@ const ProjectsAdminPage: React.FC = () => {
               </td>              
               <td className="btn-group">
                 <button  onClick={() => navigate(`/admin/single-projects/${project.id}`)} className="btn me-2 btn-outline-success"><i className="bi bi-file-earmark-zip-fill"></i></button>
-                <button onClick={() => navigate(`/admin/delete-project/${project.id}`)}  className="btn me-2 btn-outline-danger"><i className="bi bi-x"></i></button>
+                <button onClick={() => deleteProject(`${project.id}`)}  className="btn me-2 btn-outline-danger"><i className="bi bi-x"></i></button>
               </td>
             </tr>
             ))}

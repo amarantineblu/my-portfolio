@@ -5,8 +5,11 @@ import { getProjectById } from "./../../utils/ProjectsData";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "./../../firebase";
 import supabase from "../../supabase";
+import { toggleShowOnFrontend } from "../../utils/ShowProjectOnFrontEnd";
+import { toggleStarred } from "../../utils/StarredProject";
 
 type Project = {
+id?:string;
 projectMedia?: string[];
 projectName?: string;
 projectCategory?: string;
@@ -15,6 +18,8 @@ projectLanguages?: string;
 projectDescription?: string;
 projectHighlights?: string[];
 projectLink?: string;
+starred: boolean;
+showOnFrontend:boolean;
 };
 
 const SingleProjectPage: React.FC = () => {
@@ -319,10 +324,16 @@ const [activeField, setActiveField] = useState<string | null>(null);
         <div className="card-header" style={{ display: "flex" }}>
           <h2>{project.projectName}</h2>
           <button
-            onClick={() => handleClick("description")}
+            onClick={() => project.id && toggleShowOnFrontend(project.id, !project.showOnFrontend)}
             className="btn btn-sm clickable"
           >
-            <i className="bi bi-pen"></i>
+            <i className={`bi bi-${!project.showOnFrontend ? 'eye' : 'eye-slash'}-fill`}></i>
+          </button>
+          <button
+            onClick={() => project.id && toggleStarred(project.id, !project.starred)}
+            className="btn btn-sm clickable"
+          >
+            <i className="bi bi-fire"></i>
           </button>
         </div>
         <div className="card-body">

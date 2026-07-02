@@ -22,10 +22,12 @@ import { DatabaseSync } from "node:sqlite";
 
 import AlertComponent from "./components/Alert";
 import { useEffect } from "react";
-import { log } from "console";
+
 
 
 function App() {
+
+  
   
   return (
     <BrowserRouter>

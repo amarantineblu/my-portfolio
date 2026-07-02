@@ -29,5 +29,4 @@ export async function deleteImage (projectId:string,publicUrl:string,project:Pro
   const newMedia = (project.projectMedia || []).filter((url: string) => url !== publicUrl);
   await updateDoc(projectRef, { projectMedia: newMedia });
 
-  window.location.reload();
 }

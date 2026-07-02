@@ -28,6 +28,7 @@ const ProjectsAdminPage: React.FC = () => {
   const navigate = useNavigate();
 
   const deleteProject = async (id: string) => {
+    console.log('hello world');
     const project:any = await getProjectById(id)
     if (!project) return;
   

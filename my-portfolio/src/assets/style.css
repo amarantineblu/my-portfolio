@@ -186,11 +186,16 @@ nav button {
   background: linear-gradient(135deg, var(--base-200), var(--metallic-silver));
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 3px solid var(--dusk-2);
+  border: 2px solid var(--dusk-2);
   padding: 5px 15px;
   box-shadow: inset rgba(82, 80, 80, 0.167) 5px 5px 5px;
   border-radius: 5px;
   /* Adjust value as needed */
+}
+
+nav button:active{
+  background: var(--base-300) !important;
+  color: wheat !important;
 }
 
 .fade:not(.show) {
@@ -388,7 +393,7 @@ body.home {
 li .nav-link.active {
   background: var(--audi-red) !important;
   border-radius: 5px;
-  border: 3px solid var(--bwt-pink);
+  border: 1px solid var(--bwt-pink);
   padding-left: 10px !important;
 }
 

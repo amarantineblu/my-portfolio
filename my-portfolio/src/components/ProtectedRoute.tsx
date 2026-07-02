@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { ReactNode } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { ReactNode, useEffect, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { useEffect, useState } from "react";
+import supabase from "../supabase";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -17,7 +17,23 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       setUser(currentUser);
       setLoading(false);
     });
-    return () => unsubscribe();
+
+    // 🔑 Clear sessions when tab/browser closes
+    const handleUnload = async () => {
+      try {
+        await signOut(auth);              // Firebase logout
+        await supabase.auth.signOut();    // Supabase logout
+      } catch (err) {
+        console.error("Error signing out:", err);
+      }
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("beforeunload", handleUnload);
+    };
   }, []);
 
   if (loading) return <p>Loading...</p>;

@@ -70,7 +70,7 @@ const ProjectsAdminPage: React.FC = () => {
             {projects.map((project) => (
               <tr key={project.id}>
               <td>{project.projectName}</td>
-              <td><span className="badge text-white bg-success">{project.projectStatus}</span>
+              <td><span className={`badge text-white ${project.projectStatus === 'completed' ? 'bg-success' : (project.projectStatus === 'in-progress' ? 'bg-secondary' : 'bg-warning')}`}>{project.projectStatus}</span>
               </td>
               <td>
               {project.createdAt?.toDate

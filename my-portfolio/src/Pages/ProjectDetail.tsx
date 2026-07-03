@@ -146,16 +146,19 @@ const ProjectDetail = () => {
           margin: 0;
           font-size: 1.8rem;
         }
+        .project-detail .detail-grid {
+          grid-template-columns: minmax(300px, 420px) 1.2fr;
+        }
         .project-detail .media-grid {
-          column-count: 4;
-          column-gap: 1rem;
+          column-count: 2;
+          column-gap: 1.25rem;
           width: 100%;
         }
         .project-detail .media-item {
           display: inline-flex;
           flex-direction: column;
           width: 100%;
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
           break-inside: avoid-column;
           overflow: hidden;
           border-radius: 1rem;
@@ -168,11 +171,17 @@ const ProjectDetail = () => {
           height: auto;
           display: block;
           object-fit: cover;
+          min-height: 240px;
         }
         .project-detail .project-summary-block {
           display: flex;
           flex-direction: column;
           gap: 1rem;
+        }
+        @media (min-width: 1200px) {
+          .project-detail .media-grid {
+            column-count: 3;
+          }
         }
         @media (max-width: 980px) {
           .project-detail .detail-grid {

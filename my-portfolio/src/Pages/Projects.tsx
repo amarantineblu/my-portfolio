@@ -87,6 +87,12 @@ const Projects = () => {
           box-shadow: 0 8px 32px rgba(0,0,0,0.2);
           transform: translateY(-5px);
         }
+        .project-separator {
+          border: none;
+          border-top: 3px solid rgba(223, 9, 9, 0.9);
+          margin: 0;
+          width: 100%;
+        }
         .tabs {
           display: flex;
           gap: 0.75rem;
@@ -138,6 +144,24 @@ const Projects = () => {
         }
         .img video {
           max-width: 100%;
+        }
+        @media (max-width: 768px) {
+          .img {
+            min-height: 380px;
+            aspect-ratio: 16 / 9;
+          }
+          .img img,
+          .img video {
+            min-height: 380px;
+          }
+          .project-card {
+            padding: 0.8rem;
+          }
+          .project-card + .project-card {
+            border-top: 1px solid rgba(0, 0, 0, 0.76);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+          }
         }
         .project-pagination {
           width: 100%;
@@ -198,114 +222,118 @@ const Projects = () => {
           <p>Details about {categoryLabels[activeTab]} projects...</p>
 
           {paginatedProjects.map((project, idx) => (
-            <div
-              key={project.id}
-              className="row project-card fade-in glass-hover"
-              onClick={() => navigate(`/project-detail/${project.id}`)}
-              style={{ cursor: "pointer" }}
-            >
-              {idx % 2 === 0 ? (
-                <>
-                  <div className="col">
-                    <div className="card">
-                      <h2>{project.projectName}</h2>
-                      {project.projectHighlights && (
-                        <ul>
-                          {project.projectHighlights.map((point, i) => (
-                            <li key={i}>{point}</li>
-                          ))}
-                          {project.projectLink && (
-                            <li style={{ listStyle: "none" }}>
-                              <a
-                                className="text-primary"
-                                href={project.projectLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {project.projectLink}
-                              </a>
-                            </li>
-                          )}
-                        </ul>
-                      )}
+            <React.Fragment key={project.id}>
+              <div
+                className="row project-card fade-in glass-hover"
+                onClick={() => navigate(`/project-detail/${project.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                {idx % 2 === 0 ? (
+                  <>
+                    <div className="col">
+                      <div className="card">
+                        <h2>{project.projectName}</h2>
+                        {project.projectHighlights && (
+                          <ul>
+                            {project.projectHighlights.map((point, i) => (
+                              <li key={i}>{point}</li>
+                            ))}
+                            {project.projectLink && (
+                              <li style={{ listStyle: "none" }}>
+                                <a
+                                  className="text-primary"
+                                  href={project.projectLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {project.projectLink}
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="col">
-                    {project.projectMedia &&
-                      project.projectMedia.length > 0 && (
-                        <div className="img">
-                          {isVideoUrl(project.projectMedia[0]) ? (
-                            <video
-                              controls
-                              muted
-                              playsInline
-                              preload="metadata"
-                            >
-                              <source src={project.projectMedia[0]} />
-                              Your browser does not support this video.
-                            </video>
-                          ) : (
-                            <img
-                              src={project.projectMedia[0]}
-                              alt={project.projectName}
-                            />
-                          )}
-                        </div>
-                      )}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="col">
-                    {project.projectMedia &&
-                      project.projectMedia.length > 0 && (
-                        <div className="img">
-                          {isVideoUrl(project.projectMedia[0]) ? (
-                            <video
-                              controls
-                              muted
-                              playsInline
-                              preload="metadata"
-                            >
-                              <source src={project.projectMedia[0]} />
-                              Your browser does not support this video.
-                            </video>
-                          ) : (
-                            <img
-                              src={project.projectMedia[0]}
-                              alt={project.projectName}
-                            />
-                          )}
-                        </div>
-                      )}
-                  </div>
-                  <div className="col">
-                    <div className="card">
-                      <h2>{project.projectName}</h2>
-                      {project.projectHighlights && (
-                        <ul>
-                          {project.projectHighlights.map((point, i) => (
-                            <li key={i}>{point}</li>
-                          ))}
-                          {project.projectLink && (
-                            <li style={{ listStyle: "none" }}>
-                              <a
-                                className="text-primary"
-                                href={project.projectLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                    <div className="col">
+                      {project.projectMedia &&
+                        project.projectMedia.length > 0 && (
+                          <div className="img">
+                            {isVideoUrl(project.projectMedia[0]) ? (
+                              <video
+                                controls
+                                muted
+                                playsInline
+                                preload="metadata"
                               >
-                                {project.projectLink}
-                              </a>
-                            </li>
-                          )}
-                        </ul>
-                      )}
+                                <source src={project.projectMedia[0]} />
+                                Your browser does not support this video.
+                              </video>
+                            ) : (
+                              <img
+                                src={project.projectMedia[0]}
+                                alt={project.projectName}
+                              />
+                            )}
+                          </div>
+                        )}
                     </div>
-                  </div>
-                </>
+                  </>
+                ) : (
+                  <>
+                    <div className="col">
+                      {project.projectMedia &&
+                        project.projectMedia.length > 0 && (
+                          <div className="img">
+                            {isVideoUrl(project.projectMedia[0]) ? (
+                              <video
+                                controls
+                                muted
+                                playsInline
+                                preload="metadata"
+                              >
+                                <source src={project.projectMedia[0]} />
+                                Your browser does not support this video.
+                              </video>
+                            ) : (
+                              <img
+                                src={project.projectMedia[0]}
+                                alt={project.projectName}
+                              />
+                            )}
+                          </div>
+                        )}
+                    </div>
+                    <div className="col">
+                      <div className="card">
+                        <h2>{project.projectName}</h2>
+                        {project.projectHighlights && (
+                          <ul>
+                            {project.projectHighlights.map((point, i) => (
+                              <li key={i}>{point}</li>
+                            ))}
+                            {project.projectLink && (
+                              <li style={{ listStyle: "none" }}>
+                                <a
+                                  className="text-primary"
+                                  href={project.projectLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {project.projectLink}
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              {idx < paginatedProjects.length - 1 && (
+                <hr className="project-separator" />
               )}
-            </div>
+            </React.Fragment>
           ))}
 
           {/* Pagination */}

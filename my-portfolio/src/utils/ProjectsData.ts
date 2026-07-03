@@ -3,18 +3,30 @@ import {db} from './../firebase';
 
 import supabase from "./../supabase"; // centralized client
 
+export type Project = {
+  id: string;
+  projectName?: string;
+  projectDescription?: string;
+  projectCategory?: string;
+  projectStatus?: string;
+  projectLanguages?: string;
+  projectLink?: string;
+  projectMedia?: string[];
+  projectHighlights?: string[];
+};
+
 const querySnapshot = await getDocs(collection(db, "projects"));
 
 export async function getProjectsData() {  
   return querySnapshot;
 }
 
-export async function getProjectById(id: string) {
+export async function getProjectById(id: string): Promise<Project | null> {
   const docRef = doc(db, "projects", id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return { id: docSnap.id, ...docSnap.data() };
+    return { id: docSnap.id, ...(docSnap.data() as Omit<Project, "id">) };
   }
 
   return null;

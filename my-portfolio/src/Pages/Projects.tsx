@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getProjectsToFrontend } from "../utils/ProjectsData";
+import { useNavigate } from "react-router-dom";
 
 type Project = {
   id: string;
   projectName: string;
   projectDescription: string;
-  projectCategory: string; // <-- match Firestore field
+  projectCategory: string;
   showOnFrontend: boolean;
   projectMedia?: string[];
   projectHighlights?: string[];
@@ -24,6 +25,7 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState("web-development");
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const isProjectsPage = location.pathname === "/projects";
@@ -33,23 +35,22 @@ const Projects = () => {
 
     async function fetchProjects() {
       const data = await getProjectsToFrontend();
+      console.log("Fetched projects:", data);
       setProjects(data as Project[]);
     }
 
     fetchProjects();
   }, []);
 
-  // group projects by projectCategory
+  // group projects by category
   const grouped = projects.reduce((acc, project) => {
     const cat = project.projectCategory;
-    if (!acc[cat]) {
-      acc[cat] = [];
-    }
+    if (!acc[cat]) acc[cat] = [];
     acc[cat].push(project);
     return acc;
   }, {} as Record<string, Project[]>);
 
-  // pagination logic
+  // pagination per category
   const activeProjects = grouped[activeTab] || [];
   const totalPages = Math.ceil(activeProjects.length / projectsPerPage);
   const startIndex = (currentPage - 1) * projectsPerPage;
@@ -60,12 +61,96 @@ const Projects = () => {
 
   return (
     <>
-      <section className="hero">
+      {/* Inline CSS */}
+      <style>{`
+        .fade-in {
+          animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .project-card {
+          transition: all 0.3s ease;
+          border-radius: 12px;
+          backdrop-filter: blur(10px);
+          margin-bottom: 2rem;
+          padding: 1rem;
+        }
+        .project-card.glass-hover:hover {
+          background: rgba(255, 255, 255, 0.15);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+          transform: translateY(-5px);
+        }
+        .tab-btn {
+          margin: 0.5rem;
+          padding: 0.5rem 1rem;
+          border: none;
+          cursor: pointer;
+          background: #eee;
+          border-radius: 6px;
+        }
+        .tab-btn.active {
+          background: #333;
+          color: #fff !important;
+        }
+        .card {
+          background: rgba(255,255,255,0.8);
+          padding: 1rem;
+          border-radius: 8px;
+        }
+        .project-card .col {
+          width: 100%;
+        }
+        .img {
+          width: 100%;
+          min-height: 320px;
+        }
+        .img img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          border-radius: 8px;
+        }
+        .project-pagination {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 1.5rem;
+        }
+        .project-pagination .btn-group {
+          display: inline-flex;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .project-pagination button {
+          padding: 0.75rem 1rem;
+          background: #fff;
+          border: 1px solid #333;
+          border-radius: 8px;
+          color: #333;
+          cursor: pointer;
+          min-width: 64px;
+        }
+        .project-pagination button.active,
+        .project-pagination button:hover:not(:disabled) {
+          background: #333;
+          color: #fff;
+        }
+        .project-pagination button:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+        }
+      `}</style>
+
+      <section className="hero fade-in">
         <h1 className="big-intro">My Works</h1>
         <i className="bi bi-arrow-down-right-square text-black"></i>
       </section>
 
-      <section className="spotlight">
+      <section className="spotlight fade-in">
         <div className="tabs">
           {Object.keys(categoryLabels).map(cat => (
             <button
@@ -73,7 +158,7 @@ const Projects = () => {
               className={`tab-btn ${activeTab === cat ? "active" : ""}`}
               onClick={() => {
                 setActiveTab(cat);
-                setCurrentPage(1); // reset pagination when switching tabs
+                setCurrentPage(1);
               }}
               data-tab={cat}
             >
@@ -84,38 +169,99 @@ const Projects = () => {
 
         <div className="tab-content active" id={activeTab}>
           <h2>{categoryLabels[activeTab]} Projects</h2>
+          <p>Details about {categoryLabels[activeTab]} projects...</p>
 
-          {paginatedProjects.map(project => (
-            <div key={project.id} className="row">
-              <div className="col">
-                <div className="card">
-                  <h2>{project.projectName}</h2>
-                  {project.projectHighlights && (
-                    <ul>
-                      {project.projectHighlights.map((point, idx) => (
-                        <li key={idx}>{point}</li>
-                      ))}
-                      <li style={{listStyle:'none'}}><a className="text-primary" href={project.projectLink}> {project.projectLink}</a></li>
-                    </ul>
-                  )}
-                </div>
-              </div>
-              <div className="col">
-                {project.projectMedia && project.projectMedia.length > 0 && (
-                  <div className="img">
-                    <img src={project.projectMedia[0]} alt={project.projectName} />
+          {paginatedProjects.map((project, idx) => (
+            <div
+              key={project.id}
+              className="row project-card fade-in glass-hover"
+              onClick={() => navigate(`/project-detail/${project.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              {idx % 2 === 0 ? (
+                <>
+                  <div className="col">
+                    <div className="card">
+                      <h2>{project.projectName}</h2>
+                      {project.projectHighlights && (
+                        <ul>
+                          {project.projectHighlights.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                          {project.projectLink && (
+                            <li style={{ listStyle: "none" }}>
+                              <a
+                                className="text-primary"
+                                href={project.projectLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {project.projectLink}
+                              </a>
+                            </li>
+                          )}
+                        </ul>
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
+                  <div className="col">
+                    {project.projectMedia && project.projectMedia.length > 0 && (
+                      <div className="img">
+                        <img
+                          src={project.projectMedia[0]}
+                          alt={project.projectName}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="col">
+                    {project.projectMedia && project.projectMedia.length > 0 && (
+                      <div className="img">
+                        <img
+                          src={project.projectMedia[0]}
+                          alt={project.projectName}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="col">
+                    <div className="card">
+                      <h2>{project.projectName}</h2>
+                      {project.projectHighlights && (
+                        <ul>
+                          {project.projectHighlights.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                          {project.projectLink && (
+                            <li style={{ listStyle: "none" }}>
+                              <a
+                                className="text-primary"
+                                href={project.projectLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {project.projectLink}
+                              </a>
+                            </li>
+                          )}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           ))}
 
-          {/* Pagination controls */}
+          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="row">
+            <div className="project-pagination">
               <div className="btn-group">
                 <button
-                  className="btn btn-outline-dark"
+                  className={`btn ${currentPage === 1 ? "disabled" : ""}`}
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(prev => prev - 1)}
                 >
@@ -124,16 +270,14 @@ const Projects = () => {
                 {Array.from({ length: totalPages }, (_, i) => (
                   <button
                     key={i + 1}
-                    className={`btn btn-outline-dark ${
-                      currentPage === i + 1 ? "active" : ""
-                    }`}
+                    className={`btn ${currentPage === i + 1 ? "active" : ""}`}
                     onClick={() => setCurrentPage(i + 1)}
                   >
                     {i + 1}
                   </button>
                 ))}
                 <button
-                  className="btn btn-outline-dark"
+                  className={`btn ${currentPage === totalPages ? "disabled" : ""}`}
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(prev => prev + 1)}
                 >

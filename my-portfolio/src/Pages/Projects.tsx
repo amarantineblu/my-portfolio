@@ -17,8 +17,10 @@ const categoryLabels: Record<string, string> = {
   "web-development": "Web Development",
   "mobile-development": "Mobile Development",
   "mechanical-design": "Mechanical Design",
-  "academic": "Academic",
+  academic: "Academic",
 };
+
+const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -43,12 +45,15 @@ const Projects = () => {
   }, []);
 
   // group projects by category
-  const grouped = projects.reduce((acc, project) => {
-    const cat = project.projectCategory;
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(project);
-    return acc;
-  }, {} as Record<string, Project[]>);
+  const grouped = projects.reduce(
+    (acc, project) => {
+      const cat = project.projectCategory;
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(project);
+      return acc;
+    },
+    {} as Record<string, Project[]>,
+  );
 
   // pagination per category
   const activeProjects = grouped[activeTab] || [];
@@ -56,7 +61,7 @@ const Projects = () => {
   const startIndex = (currentPage - 1) * projectsPerPage;
   const paginatedProjects = activeProjects.slice(
     startIndex,
-    startIndex + projectsPerPage
+    startIndex + projectsPerPage,
   );
 
   return (
@@ -82,13 +87,28 @@ const Projects = () => {
           box-shadow: 0 8px 32px rgba(0,0,0,0.2);
           transform: translateY(-5px);
         }
+        .tabs {
+          display: flex;
+          gap: 0.75rem;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          padding: 0.5rem 0.25rem;
+          min-height: 3.5rem;
+          align-items: center;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tabs::-webkit-scrollbar {
+          display: none;
+        }
         .tab-btn {
-          margin: 0.5rem;
-          padding: 0.5rem 1rem;
+          flex: 0 0 auto;
+          margin: 0;
+          padding: 0.65rem 0.95rem;
           border: none;
           cursor: pointer;
           background: #eee;
           border-radius: 6px;
+          white-space: nowrap;
         }
         .tab-btn.active {
           background: #333;
@@ -105,13 +125,19 @@ const Projects = () => {
         .img {
           width: 100%;
           min-height: 320px;
+          overflow: hidden;
+          border-radius: 8px;
         }
-        .img img {
+        .img img,
+        .img video {
           width: 100%;
           height: 100%;
           object-fit: cover;
           display: block;
           border-radius: 8px;
+        }
+        .img video {
+          max-width: 100%;
         }
         .project-pagination {
           width: 100%;
@@ -151,8 +177,8 @@ const Projects = () => {
       </section>
 
       <section className="spotlight fade-in">
-        <div className="tabs">
-          {Object.keys(categoryLabels).map(cat => (
+        <div className="tabs" style={{ overflowX: "scroll" }}>
+          {Object.keys(categoryLabels).map((cat) => (
             <button
               key={cat}
               className={`tab-btn ${activeTab === cat ? "active" : ""}`}
@@ -205,27 +231,53 @@ const Projects = () => {
                     </div>
                   </div>
                   <div className="col">
-                    {project.projectMedia && project.projectMedia.length > 0 && (
-                      <div className="img">
-                        <img
-                          src={project.projectMedia[0]}
-                          alt={project.projectName}
-                        />
-                      </div>
-                    )}
+                    {project.projectMedia &&
+                      project.projectMedia.length > 0 && (
+                        <div className="img">
+                          {isVideoUrl(project.projectMedia[0]) ? (
+                            <video
+                              controls
+                              muted
+                              playsInline
+                              preload="metadata"
+                            >
+                              <source src={project.projectMedia[0]} />
+                              Your browser does not support this video.
+                            </video>
+                          ) : (
+                            <img
+                              src={project.projectMedia[0]}
+                              alt={project.projectName}
+                            />
+                          )}
+                        </div>
+                      )}
                   </div>
                 </>
               ) : (
                 <>
                   <div className="col">
-                    {project.projectMedia && project.projectMedia.length > 0 && (
-                      <div className="img">
-                        <img
-                          src={project.projectMedia[0]}
-                          alt={project.projectName}
-                        />
-                      </div>
-                    )}
+                    {project.projectMedia &&
+                      project.projectMedia.length > 0 && (
+                        <div className="img">
+                          {isVideoUrl(project.projectMedia[0]) ? (
+                            <video
+                              controls
+                              muted
+                              playsInline
+                              preload="metadata"
+                            >
+                              <source src={project.projectMedia[0]} />
+                              Your browser does not support this video.
+                            </video>
+                          ) : (
+                            <img
+                              src={project.projectMedia[0]}
+                              alt={project.projectName}
+                            />
+                          )}
+                        </div>
+                      )}
                   </div>
                   <div className="col">
                     <div className="card">
@@ -263,7 +315,7 @@ const Projects = () => {
                 <button
                   className={`btn ${currentPage === 1 ? "disabled" : ""}`}
                   disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(prev => prev - 1)}
+                  onClick={() => setCurrentPage((prev) => prev - 1)}
                 >
                   &lt;&lt; Prev
                 </button>
@@ -279,7 +331,7 @@ const Projects = () => {
                 <button
                   className={`btn ${currentPage === totalPages ? "disabled" : ""}`}
                   disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(prev => prev + 1)}
+                  onClick={() => setCurrentPage((prev) => prev + 1)}
                 >
                   Next &gt;&gt;
                 </button>

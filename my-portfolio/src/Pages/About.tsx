@@ -24,7 +24,7 @@ const About = () => {
   </section>
   <section className="about-section">
     <div className="container">
-      <img className="about-img" src='https://res.cloudinary.com/xqjwb1sa/image/upload/v1783113128/IMG_7382_wykuka.jpg' alt=""  />
+      <img className="about-img" src='https://res.cloudinary.com/xqjwb1sa/image/upload/f_auto,q_auto/1000870665_ontdx6' alt=""  />
       <h3>Hello, I’m Marcus Lebanon Elioma, a developer and designer...</h3>
     </div>
   </section>

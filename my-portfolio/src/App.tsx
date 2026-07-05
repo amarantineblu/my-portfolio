@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import ProjectDetail from "./Pages/ProjectDetail";
 import DashboardPage from "./Pages/Admin/DashboardPage";
+import VisitorsPage from "./Pages/Admin/VisitorsPage";
 import ProjectsAdminPage from "./Pages/Admin/ProjectsAdminPage";
 import AddProjectsAdminPage from "./Pages/Admin/AddProjectsAdminPage";
 import SingleProjectPage from "./Pages/Admin/SingleProjectPage";
@@ -23,12 +24,7 @@ import { DatabaseSync } from "node:sqlite";
 import AlertComponent from "./components/Alert";
 import { useEffect } from "react";
 
-
-
 function App() {
-
-  
-  
   return (
     <BrowserRouter>
       <Routes>
@@ -48,6 +44,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="visitors"
+            element={
+              <ProtectedRoute>
+                <VisitorsPage />
               </ProtectedRoute>
             }
           />

@@ -1,4 +1,4 @@
-import React ,{useState} from "react"
+import React, { useState } from "react";
 import supabase from "../../supabase"; // centralized client
 import { v4 as uuid } from "uuid";
 import Form, { FormField } from "../../components/Form";
@@ -6,10 +6,10 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "./../../firebase";
 import { useNavigate, Link } from "react-router-dom";
 
-
 const AddProjectsAdminPage: React.FC = () => {
   const navigate = useNavigate();
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const fields: FormField[] = [
     {
       name: "projectCategory",
@@ -78,12 +78,15 @@ const AddProjectsAdminPage: React.FC = () => {
   const handleSubmit = async (
     values: Record<string, any>,
     selectedFiles: File[],
-    highlights: string[]
+    highlights: string[],
   ) => {
     try {
+      setIsSubmitting(true);
       // 🔐 Authenticate once here
-      const { data: { user } } = await supabase.auth.getUser();
-  
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       // 📂 Upload files and collect public URLs
       const urls = await Promise.all(
         selectedFiles.map(async (file) => {
@@ -91,43 +94,44 @@ const AddProjectsAdminPage: React.FC = () => {
             .replace(/\s+/g, "_") // replace spaces
             .replace(/[^\w.-]/g, ""); // remove unsafe chars
           const fileName = `${uuid()}-${safeName}`;
-  
+
           const { error: uploadError } = await supabase.storage
             .from("projects-images")
             .upload(fileName, file, { contentType: file.type });
-  
+
           if (uploadError) {
             console.error("Upload error:", uploadError.message);
             return null;
           }
-  
+
           // ✅ Extract the actual string from the object
           const { data } = supabase.storage
             .from("projects-images")
             .getPublicUrl(fileName);
-  
+
           return data.publicUrl;
-        })
+        }),
       );
-  
+
       // Filter out any nulls in case of upload errors
       const validUrls = urls.filter((url): url is string => !!url);
-  
-  
+
       // 🗄️ Save project in Firestore
       await addDoc(collection(db, "projects"), {
         ...values,
-        projectMedia: validUrls,      // ✅ array of public URLs
+        projectMedia: validUrls, // ✅ array of public URLs
         projectHighlights: highlights, // ✅ array of strings
         createdAt: new Date(),
       });
-  
+
       navigate("/admin/projects");
     } catch (error) {
       console.error("Error adding project:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  
+
   return (
     <div className="container mt-5">
       <div className="card mb-4">
@@ -136,11 +140,16 @@ const AddProjectsAdminPage: React.FC = () => {
           <i className="fas fa-plus"></i> Add New Project
         </div>
         <div className="card-body">
-          <Form fields={fields} onSubmit={handleSubmit} submitLabel="Add New Project" />
+          <Form
+            fields={fields}
+            onSubmit={handleSubmit}
+            submitLabel="Add New Project"
+            isSubmitting={isSubmitting}
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddProjectsAdminPage
+export default AddProjectsAdminPage;

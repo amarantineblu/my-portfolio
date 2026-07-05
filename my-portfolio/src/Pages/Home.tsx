@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Alert from "../components/Alert";
-import myImg from "../assets/images/aboutImg.JPG.jpeg";
+
 import SkillButton from "../components/SkillBtn";
 const Home = () => {
   const alertMessage = {
@@ -110,7 +110,7 @@ const Home = () => {
           <div className="col">
             <div className="hero-img">
             
-              <img className="home-img" src={myImg} alt="" />
+              <img className="home-img" src='https://res.cloudinary.com/xqjwb1sa/image/upload/v1783113128/IMG_7382_wykuka.jpg' alt="" />
             </div>
           </div>
         </div>

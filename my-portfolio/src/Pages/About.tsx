@@ -1,5 +1,4 @@
 // @ts-ignore
-import aboutImg from '../assets/images/homeImg.jpeg'
 import {useEffect} from 'react'
 const About = () => {
   const isAboutPage = location.pathname === "/about";
@@ -25,7 +24,7 @@ const About = () => {
   </section>
   <section className="about-section">
     <div className="container">
-      <img className="about-img" src={aboutImg} alt=""  />
+      <img className="about-img" src='https://res.cloudinary.com/xqjwb1sa/image/upload/v1783113128/IMG_7382_wykuka.jpg' alt=""  />
       <h3>Hello, I’m Marcus Lebanon Elioma, a developer and designer...</h3>
     </div>
   </section>

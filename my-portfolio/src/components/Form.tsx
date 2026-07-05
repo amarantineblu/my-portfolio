@@ -11,18 +11,30 @@ export interface FormField {
 
 interface FormProps {
   fields: FormField[];
-  onSubmit: (values: Record<string, any>, files: File[], highlights: string[]) => void;
+  onSubmit: (
+    values: Record<string, any>,
+    files: File[],
+    highlights: string[],
+  ) => void;
   submitLabel?: string;
+  isSubmitting?: boolean;
 }
 
-const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" }) => {
+const Form: React.FC<FormProps> = ({
+  fields,
+  onSubmit,
+  submitLabel = "Submit",
+  isSubmitting = false,
+}) => {
   const [values, setValues] = useState<Record<string, any>>({});
   const [highlights, setHighlights] = useState<string[]>([]);
   const [highlightInput, setHighlightInput] = useState<string>("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -43,6 +55,7 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     onSubmit(values, selectedFiles, highlights);
   };
 
@@ -125,8 +138,12 @@ const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel = "Submit" })
                 )}
               </div>
             ))}
-            <button type="submit" className="btn btn-warning text-white w-100">
-              {submitLabel}
+            <button
+              type="submit"
+              className={`btn btn-warning text-white w-100 ${isSubmitting ? "disabled" : ""}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? `${submitLabel}...` : submitLabel}
             </button>
           </form>
         </div>

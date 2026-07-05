@@ -26,7 +26,7 @@ const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [activeTab, setActiveTab] = useState("web-development");
   const [currentPage, setCurrentPage] = useState(1);
-  const projectsPerPage = 5;
+  const projectsPerPage = 3;
   const navigate = useNavigate();
 
   useEffect(() => {

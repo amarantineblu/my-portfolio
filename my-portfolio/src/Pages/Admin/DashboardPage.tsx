@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { getProjectsData, Project } from "../../utils/ProjectsData";
 import supabase from "../../supabase";
 
@@ -11,10 +13,12 @@ const DashboardPage: React.FC = () => {
   const [projects, setProjects] = useState<ProjectWithDates[]>([]);
   const [visitorCount, setVisitorCount] = useState<number>(0);
   const [loadingVisitors, setLoadingVisitors] = useState(true);
+  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setLoadingProjects(true);
         const querySnapshot = await getProjectsData();
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -23,6 +27,8 @@ const DashboardPage: React.FC = () => {
         setProjects(data);
       } catch (err) {
         console.error("Error fetching projects:", err);
+      } finally {
+        setLoadingProjects(false);
       }
     };
 
@@ -57,7 +63,7 @@ const DashboardPage: React.FC = () => {
             <i className="fas fa-users"></i> Visitors
           </h5>
           <p className="card-text fs-3">
-            {loadingVisitors ? "Loading..." : visitorCount}
+            {loadingVisitors ? <Skeleton width={140} /> : visitorCount}
           </p>
         </div>
       </div>
@@ -77,7 +83,21 @@ const DashboardPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {projects.length === 0 ? (
+                {loadingProjects ? (
+                  Array.from({ length: 4 }).map((_, i) => (
+                    <tr key={i}>
+                      <td>
+                        <Skeleton />
+                      </td>
+                      <td>
+                        <Skeleton width={100} />
+                      </td>
+                      <td>
+                        <Skeleton width={120} />
+                      </td>
+                    </tr>
+                  ))
+                ) : projects.length === 0 ? (
                   <tr>
                     <td colSpan={3}>No projects found.</td>
                   </tr>

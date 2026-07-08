@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { getProjectsToFrontend } from "../utils/ProjectsData";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +26,7 @@ const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("web-development");
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 3;
@@ -36,9 +39,14 @@ const Projects = () => {
     }
 
     async function fetchProjects() {
-      const data = await getProjectsToFrontend();
-      console.log("Fetched projects:", data);
-      setProjects(data as Project[]);
+      try {
+        setLoading(true);
+        const data = await getProjectsToFrontend();
+        console.log("Fetched projects:", data);
+        setProjects(data as Project[]);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchProjects();
@@ -221,7 +229,28 @@ const Projects = () => {
           <h2>{categoryLabels[activeTab]} Projects</h2>
           <p>Details about {categoryLabels[activeTab]} projects...</p>
 
-          {paginatedProjects.map((project, idx) => (
+          {loading ? (
+            Array.from({ length: projectsPerPage }).map((_, idx) => (
+              <div className="row project-card fade-in glass-hover" key={idx}>
+                <div className="col">
+                  <div className="card">
+                    <h2>
+                      <Skeleton width={200} />
+                    </h2>
+                    <p>
+                      <Skeleton count={2} />
+                    </p>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="img">
+                    <Skeleton height={220} />
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            paginatedProjects.map((project, idx) => (
             <React.Fragment key={project.id}>
               <div
                 className="row project-card fade-in glass-hover"
@@ -334,7 +363,8 @@ const Projects = () => {
                 <hr className="project-separator" />
               )}
             </React.Fragment>
-          ))}
+          )))
+        }
 
           {/* Pagination */}
           {totalPages > 1 && (

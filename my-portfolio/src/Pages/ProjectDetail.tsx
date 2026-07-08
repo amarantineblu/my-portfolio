@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useParams } from "react-router-dom";
 import { getProjectById, Project as ProjectType } from "../utils/ProjectsData";
 
@@ -60,8 +62,38 @@ const ProjectDetail = () => {
   if (loading) {
     return (
       <section className="spotlight project-detail">
-        <div className="card">
-          <h2>Loading project details...</h2>
+        <div className="detail-grid">
+          <div className="summary-card">
+            <div>
+              <Skeleton width={140} />
+            </div>
+
+            <div className="project-summary-block">
+              <h1>
+                <Skeleton width={320} />
+              </h1>
+              <p className="project-description">
+                <Skeleton count={4} />
+              </p>
+            </div>
+
+            <div>
+              <Skeleton width={180} />
+            </div>
+          </div>
+
+          <div className="media-section">
+            <h2>
+              <Skeleton width={120} />
+            </h2>
+            <div className="media-grid">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="media-item">
+                  <Skeleton height={220} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     );

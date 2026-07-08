@@ -283,7 +283,7 @@ img {
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 10rem;
+  gap: 3rem;
   /* overflow: hidden; */
   top: -2rem;
 }
@@ -323,7 +323,7 @@ body.home {
 .outro {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 100vh;
   padding: 2rem;
   background-color: var(--base-200);
   display: flex;
@@ -545,6 +545,7 @@ li .nav-link.active {
   .hero,
   .outro {
     flex-direction: row;
+    height: 70vh !important;
   }
 
   .hero h1,
@@ -618,8 +619,8 @@ li .nav-link.active {
   }
   .about .about-section .about-img {
     border-radius: 15px !important;
-    width: 500px !important;
-    height: auto !important;
+    width: auto !important;
+    height: 400px !important;
   }
 }
 

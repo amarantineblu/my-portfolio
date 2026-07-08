@@ -1,10 +1,34 @@
-// @ts-ignore
-import {useEffect} from 'react'
+import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const About = () => {
+  const [loading, setLoading] = useState(true);
   const isAboutPage = location.pathname === "/about";
   useEffect(() => {
     isAboutPage && (document.title = "About Page - Marcus Lebanon Elioma");
-  },[]);
+    // brief skeleton on mount for perceived performance
+    const t = setTimeout(() => setLoading(false), 450);
+    return () => clearTimeout(t);
+  }, []);
+  if (loading) {
+    return (
+      <div className="about">
+        <section className="hero">
+          <h1 className="big-intro">
+            <Skeleton width={300} />
+          </h1>
+          <div className="card about-hero-card">
+            <h2>
+              <Skeleton width={160} />
+            </h2>
+            <Skeleton count={4} />
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="about">
       <section className="hero">
@@ -31,11 +55,13 @@ const About = () => {
 
   <section className="spotlight">
 
-          <div className="row">
+          <div className="experience-detail" style={{'paddingTop': "2rem"}}>
+
+
+            <h2> Education </h2>
             <div className="col">
-              <div className="experience-detail">
-                <h2 > Education </h2>
-                <div className="row">
+                <div className="row" >
+
                   <div className="col">
                     <i className="bi bi-mortarboard-fill text-black"></i>
           
@@ -48,7 +74,6 @@ const About = () => {
                     <p> Rivers State University| Nkpolu Oroworukwo| Port Harcourt - Nigeria. </p>
                   </div>
                 </div>
-              </div>
             </div>
           
           </div>

@@ -14,10 +14,10 @@ const ProjectsAdminPage: React.FC = () => {
   useEffect( ()=>{
     const fetchProjects = async () => {
       const querySnapshot = await getProjectsData();
-      const data = querySnapshot.docs.map((doc) => ({
+      const data = querySnapshot?.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      })) ?? [];
       setProjects(data);
     };
     fetchProjects();

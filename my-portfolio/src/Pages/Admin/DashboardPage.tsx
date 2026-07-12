@@ -20,11 +20,11 @@ const DashboardPage: React.FC = () => {
       try {
         setLoadingProjects(true);
         const querySnapshot = await getProjectsData();
-        const data = querySnapshot.docs.map((doc) => ({
+        const data = querySnapshot?.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        })) as ProjectWithDates[];
-        setProjects(data);
+        })) as ProjectWithDates[] | undefined;
+        setProjects(data ?? []);
       } catch (err) {
         console.error("Error fetching projects:", err);
       } finally {

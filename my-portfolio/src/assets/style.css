@@ -686,23 +686,4 @@ li .nav-link.active {
 }
 
 /* Skill button styling (copied from original index.html and adapted) */
-.skill-btn {
-  position: absolute;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 90px;
-  height: 90px;
-  border-radius: 20px;
-  background: rgba(233, 86, 6, 0.673);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  font-size: 2rem;
-  cursor: grab;
-  transition: transform 0.3s;
-  z-index: 1000;
-}
 
-.skill-btn:hover {
-  transform: scale(1.2);
-}

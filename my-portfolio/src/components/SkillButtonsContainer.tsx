@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { skillBtnDetails } from "./SkillBtnDetails";
 import SkillButton from "./SkillBtn";
-import { log } from "console";
 
 const SkillButtonsContainer: React.FC = () => {
   useEffect(() => {
     const skillButtons = Array.from(
-      document.querySelectorAll(".skill-btn"),
+      document.querySelectorAll(".skill-btn-group"),
     ) as HTMLElement[];
 
     // Random placement
@@ -16,7 +15,6 @@ const SkillButtonsContainer: React.FC = () => {
 
       btn.style.left = `${x}px`;
       btn.style.top = `${y}px`;
-      // ensure they are above nav
       btn.style.position = "absolute";
       btn.style.zIndex = "1000";
     });
@@ -59,10 +57,31 @@ const SkillButtonsContainer: React.FC = () => {
     };
   }, []);
 
+  // Utility to group array into chunks of 5
+  const groupInFives = <T,>(arr: T[]): T[][] => {
+    const result: T[][] = [];
+    for (let i = 0; i < arr.length; i += 5) {
+      result.push(arr.slice(i, i + 5));
+    }
+    return result;
+  };
+
+  const groupedButtons = groupInFives(skillBtnDetails);
+
   return (
     <>
-      {skillBtnDetails.map((btn, idx) => (
-        <SkillButton key={idx} skill={btn.skill} type={btn.type as "icon" | "svg"} component={btn.component} iconOrImageString={btn.iconOrImageString} />
+      {groupedButtons.map((group, groupIdx) => (
+        <div key={groupIdx} className="btn-group skill-btn-group" style={{ margin: "10px" }}>
+          {group.map((btn, idx) => (
+            <SkillButton
+              key={idx}
+              skill={btn.skill}
+              type={btn.type as "icon" | "svg"}
+              component={btn.component}
+              iconOrImageString={btn.iconOrImageString}
+            />
+          ))}
+        </div>
       ))}
     </>
   );

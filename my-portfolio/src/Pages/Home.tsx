@@ -55,41 +55,7 @@ const Home = () => {
 
     const rect = spotlight.getBoundingClientRect();
     // Random placement
-    skillButtons.forEach((btn) => {
-      const x = Math.random() * (rect.width - 100);
-      const y = Math.random() * (rect.height - 100);
-      btn.style.left = `${x}px`;
-      btn.style.top = `${y}px`;
-    });
-
-    // Make draggable with Pointer Events
-    skillButtons.forEach((btn) => {
-      const onPointerDown = (e: PointerEvent) => {
-        e.preventDefault();
-        (btn as HTMLElement).setPointerCapture(e.pointerId);
-
-        const rect = btn.getBoundingClientRect();
-        const shiftX = e.clientX - rect.left;
-        const shiftY = e.clientY - rect.top;
-
-        const onPointerMove = (ev: PointerEvent) => {
-          btn.style.left = ev.pageX - shiftX + "px";
-          btn.style.top = ev.pageY - shiftY + "px";
-        };
-
-        const onPointerUp = () => {
-          btn.removeEventListener("pointermove", onPointerMove as any);
-          btn.removeEventListener("pointerup", onPointerUp as any);
-        };
-
-        btn.addEventListener("pointermove", onPointerMove as any);
-        btn.addEventListener("pointerup", onPointerUp as any);
-      };
-
-      btn.addEventListener("pointerdown", onPointerDown as any);
-      btn.ondragstart = () => false;
-      (btn as any).__onPointerDown = onPointerDown;
-    });
+   
 
     return () => {
       skillButtons.forEach((btn) => {

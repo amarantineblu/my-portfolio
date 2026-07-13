@@ -25,6 +25,7 @@ export async function getProjectsData() {
     return await getDocs(collection(db, "projects"));
   } catch (error) {
     console.error("Failed to load projects data:", error);
+    console.log("Error details:", error);
     return null;
   }
 }
@@ -41,6 +42,7 @@ export async function getProjectById(id: string): Promise<Project | null> {
     return null;
   } catch (error) {
     console.error("Failed to load project by id:", error);
+    
     return null;
   }
 }

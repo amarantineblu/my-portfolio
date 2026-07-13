@@ -1,4 +1,11 @@
-import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "./../firebase";
 
 export type Project = {
@@ -40,7 +47,10 @@ export async function getProjectById(id: string): Promise<Project | null> {
 
 export async function getProjectsToFrontend() {
   try {
-    const q = query(collection(db, "projects"), where("showOnFrontend", "==", true));
+    const q = query(
+      collection(db, "projects"),
+      where("showOnFrontend", "==", true),
+    );
     const snapshot = await getDocs(q);
     const projects = snapshot.docs.map((document) => ({
       id: document.id,

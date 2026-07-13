@@ -26,7 +26,9 @@ describe("ProjectsData", () => {
   });
 
   test("returns an empty list when Firestore denies access", async () => {
-    getDocsMock.mockRejectedValueOnce(new Error("Missing or insufficient permissions"));
+    getDocsMock.mockRejectedValueOnce(
+      new Error("Missing or insufficient permissions"),
+    );
     queryMock.mockReturnValue({});
     whereMock.mockReturnValue({});
 
